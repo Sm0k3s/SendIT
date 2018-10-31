@@ -112,13 +112,11 @@ h2 {
 
 footer {
 	text-align: center;
-	/* width: 100%;
-	height: 50px; */
+	width: 100%;
+	height: 50px;
 	background-color: #2C066E;
 	position: absolute;
 	bottom: 0;
-	right: 0;
-  left: 0;
 	padding: 1rem;
 }
 .copyright {
@@ -133,7 +131,6 @@ footer {
 /********************SIGN UP PAGE***********/
 .form {
 width: fit-content;
-height: calc(100vh - 50px);
 text-align: center;
 margin: 0 auto;
 }
