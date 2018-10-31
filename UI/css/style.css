@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Rajdhani|PT+Sans');
-
+html {
+	height: 100%;
+	box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
 * {
 	padding: 0;
 	margin: 0;
@@ -101,13 +109,17 @@ h2 {
 	font-family: 'Indie Flower', sans-serif;
 }
 /************FOOTER**********************/
+
 footer {
 	text-align: center;
-	width: 100%;
-	height: 50px;
+	/* width: 100%;
+	height: 50px; */
 	background-color: #2C066E;
 	position: absolute;
 	bottom: 0;
+	right: 0;
+  left: 0;
+	padding: 1rem;
 }
 .copyright {
 	width: 100%;
@@ -120,17 +132,45 @@ footer {
 
 /********************SIGN UP PAGE***********/
 .form {
-width: 100%;
+width: fit-content;
+height: calc(100vh - 50px);
 text-align: center;
+margin: 0 auto;
 }
+
+.form h2 {
+	padding: 10px 40px;
+	color: #2C066E;
+	margin: 30px auto;
+	font-size: 50px;
+	font-family: 'Indie Flower', sans-serif;
+}
+
 label {
 	margin: 10px;
+	color: #2C066E;
+	font-size: 1.2em;
 }
 .form1 {
 	margin: 10px 0;
 	padding: 8px 15px;
-	border: 1px solid #30383b;
-	width: 20%;
+	border: 1px solid #2C066E;
+	width: 100%;
+	align-content: center;
 	border-radius: 3px;
 	display: block;
+}
+.sign {
+	display: inline;
+	background-color: #2C066E;
+	border: 1px solid #2C066E;
+	width: fit-content;
+	margin-top: 10px;
+	padding: 10px 20px;
+	color: #E3D3E3;
+}
+.sign a {
+	font-size: 1.15em;
+	color: #E3D3E3;
+	text-decoration: none;
 }
