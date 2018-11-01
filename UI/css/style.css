@@ -180,3 +180,10 @@ label {
 	padding: 10px;
 	text-decoration: none;
 }
+
+/*****************ORDERS PAGE**************/
+.delivery-form{
+	color: #2C066E;
+	width: fit-content;
+	border: 2px solid #2c066e;
+}
