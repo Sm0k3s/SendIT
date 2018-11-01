@@ -171,3 +171,11 @@ label {
 	color: #E3D3E3;
 	text-decoration: none;
 }
+.form-group a {
+	display: inline-block;
+	font-size: 1em;
+	background-color: #E3D3E3;
+	color: #2C066E;
+	padding: 10px;
+	text-decoration: none;
+}
