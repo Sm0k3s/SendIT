@@ -184,6 +184,9 @@ label {
 /*****************ORDERS PAGE**************/
 .delivery-form{
 	color: #2C066E;
-	width: fit-content;
-	border: 2px solid #2c066e;
+	width: 40%;
+}
+.delivery-form h2{
+	color: #2C066E;
+	font-size: 1.4em;
 }

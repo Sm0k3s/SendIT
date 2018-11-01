@@ -26,11 +26,11 @@
  		<div class="container">
  			<div class="delivery-form">
  			<h2>Create a parcel delivery order</h2>
- 			<form>
+ 			<form action="#" id="form">
 
  	          	<div class="form-group">
  	                <label>Pickup location</label>
- 	                <input type="text" class="form1" placeholder="Enter your the pickup location">
+ 	                <input type="text" class="form1 place" placeholder="Enter your the pickup location">
  	            </div>
 
                  <div class="form-group">
@@ -39,11 +39,14 @@
                  </div>
                  <div class="form-group">
                    <label>Weight</label>
-                   <input type="text" class="form1" placeholder="Weight in kg">
+                   <input type="text" class="form1 weight" placeholder="Weight in kg">
                  </div>
 
-                 <button type="submit" class="sign"><a href="login.html">Quote</a></button>
-
+                 <button type="submit" class="sign" id="quote"><a href="#">Quote</a></button>
+                 <div class="form-group">
+                   <label style="float:left;">Price in kshs.</label>
+                   <label class="price" style="float:left;">123</label>
+                 </div>
          	</form>
          	</div>
  		</div>
@@ -55,5 +58,8 @@
  			</small
  		</div>
  	 </footer>
+   <script src="js/app.js">
+
+   </script>
   </body>
 </html>
