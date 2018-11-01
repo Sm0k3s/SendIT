@@ -183,6 +183,7 @@ label {
 
 /*****************ORDERS PAGE**************/
 .delivery-form{
+	float: left;
 	color: #2C066E;
 	width: 40%;
 }
@@ -193,4 +194,14 @@ label {
 .pricing  span {
 	color: #2C066E;
 	font-size: 1.2em;
+}
+.orders h2 {
+	color: #2C066E;
+
+}
+
+.orders {
+	width: 50%;
+	float: left;
+	margin-left: 20px;
 }
