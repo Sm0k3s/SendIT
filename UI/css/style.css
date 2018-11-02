@@ -205,3 +205,31 @@ label {
 	float: left;
 	margin-left: 20px;
 }
+.edit-order {
+	height: 400px;
+}
+/*************TABLE***********/
+table {
+	margin: 20px;
+	width: 100%;
+	margin: 0 auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+
+table th {
+	width: 40px;
+}
+table tr {
+	margin: 5px 0;
+}
+.btn {
+	padding: 0 10px;
+	border: 2px solid #2C066E;
+}
+.edit-order {
+	display: block;
+}
+.edit-order td {
+	margin: 80px;
+}
