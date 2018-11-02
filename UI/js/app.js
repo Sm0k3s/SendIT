@@ -5,7 +5,7 @@ eventListeners();
 // Functions
 
 function eventListeners() {
-  document.querySelector('#quote').addEventListener('click', calcPrice)
+  document.querySelector('#quote').addEventListener('click', calcPrice);
 }
 
 function calcPrice(e){
@@ -38,3 +38,21 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+//Tabs
+function openCity(e, order) {
+    let i, tabcontent, tablinks;
+    tabcontent = document.querySelectorAll(".tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.querySelectorAll(".tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(order).style.display = "block";
+    e.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
