@@ -205,9 +205,6 @@ label {
 	float: left;
 	margin-left: 20px;
 }
-.edit-order {
-	height: 400px;
-}
 /*************TABLE***********/
 table {
 	margin: 20px;
@@ -217,19 +214,48 @@ table {
 	border-collapse: collapse;
 }
 
-table th {
+table th, td {
 	width: 40px;
+	padding: 0.75em 1.5em 0;
 }
 table tr {
 	margin: 5px 0;
 }
+.footer {
+	position: relative;
+	bottom: 0;
+}
 .btn {
-	padding: 0 10px;
-	border: 2px solid #2C066E;
+	background-color: #c4284f;
+	padding: 5px 10px;
+	color: #e3d3e3;
+	/* border: 1px solid #2C066E; */
+	text-decoration: none;
+	transition: ease-in-out .5s;
+}
+.btn:hover {
+
+	background-color: #E3D3E3;
+	color: #2C066E;
+	transition: ease-in-out .5s;
 }
 .edit-order {
-	display: block;
+	min-height: 150px;
 }
 .edit-order td {
 	margin: 80px;
 }
+
+section {
+	width: 100%;
+	height: 415px;
+}
+ .place-order {
+	 height: 200px;
+ }
+
+ .edit {
+	 background-color: #2C066E;
+	 color: #E3D3E3;
+	 transition: ease-in-out .5s;
+ }
