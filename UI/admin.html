@@ -25,56 +25,74 @@
   <section  class="place-order">
 
           <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'delivered')" id="defaultOpen">Edit current locationn</button>
-            <button class="tablinks" onclick="openCity(event, 'transit')">Change status</button>
-            <button class="tablinks" onclick="openCity(event, 'all-deli')">All orders</button>
+            <button class="tablinks" onclick="openCity(event, 'delivered')" id="defaultOpen">All orders</button>
+            <button class="tablinks" onclick="openCity(event, 'transit')">Change delivery status</button>
+            <button class="tablinks" onclick="openCity(event, 'all-deli')">Edit current location</button>
           </div>
 
           <div id="delivered" class="tabcontent">
-                <div class="edit-order">
+            
+              <div class="edit-order">
 
-                  <table>
-                    <h3>Delivered orders</h3>
-                        <tbody>
+                <table>
+                  <h3>All delivery orders</h3>
+                      <tbody>
 
-                          <tr>
+                        <tr>
 
-                          <th>Pick up location</th>
-                          <th>Drop off location</th>
-                          <th>Weight</th>
-                          <th>Price in Kshs.</th>
-                          <th>Status</th>
-                          <th></th>
-                          </tr>
+                        <th>Pick up location</th>
+                        <th>Drop off location</th>
+                        <th>Weight</th>
+                        <th>Price in Kshs.</th>
+                        <th>Status</th>
+                        <th></th>
+                        </tr>
 
-                          <tr>
+                        <tr>
 
-                            <td>Marsabit</td>
-                            <td>Eldoret</td>
-                            <td>16</td>
-                            <td>150</td>
-                            <td> <a href="#" class="btn edit">Delivered</a></td>
-                          </tr>
-                          <tr>
+                          <td>Marsabit</td>
+                          <td>Eldoret</td>
+                          <td>16</td>
+                          <td>150</td>
+                          <td> <a href="#" class="btn edit">In-transit</a></td>
+                        </tr>
+                        <tr>
 
-                            <td>Marsabit</td>
-                            <td>Eldoret</td>
-                            <td>16</td>
-                            <td>150</td>
-                            <td> <a href="#" class="btn edit">Delivered</a></td>
-                          </tr>
-                          <tr>
+                          <td>Marsabit</td>
+                          <td>Eldoret</td>
+                          <td>16</td>
+                          <td>150</td>
+                          <td> <a href="#" class="btn edit">Delivered</a></td>
+                        </tr>
+                        <tr>
 
-                            <td>Marsabit</td>
-                            <td>Eldoret</td>
-                            <td>16</td>
-                            <td>150</td>
-                            <td> <a href="#" class="btn edit">Delivered</a></td>
-                          </tr>
-                        </tbody>
-                      </table>
+                          <td>Marsabit</td>
+                          <td>Eldoret</td>
+                          <td>16</td>
+                          <td>150</td>
+                          <td> <a href="#" class="btn edit">In-transit</a></td>
+                        </tr>
+                        <tr>
 
-                </div>
+                          <td>Marsabit</td>
+                          <td>Eldoret</td>
+                          <td>16</td>
+                          <td>150</td>
+                          <td> <a href="#" class="btn edit">In-transit</a></td>
+                        </tr>
+                        <tr>
+
+                          <td>Marsabit</td>
+                          <td>Eldoret</td>
+                          <td>16</td>
+                          <td>150</td>
+                          <td> <a href="#" class="btn edit">Delivered</a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+              </div>
+
           </div>
 
           <div id="transit" class="tabcontent" style="display:none;">
@@ -155,7 +173,7 @@
                       <th>Drop off location</th>
                       <th>Weight</th>
                       <th>Price in Kshs.</th>
-                      <th>Status</th>
+                      <th>Change current location</th>
                       <th></th>
                       </tr>
 
@@ -165,19 +183,12 @@
                         <td>Eldoret</td>
                         <td>16</td>
                         <td>150</td>
-                        <td> <a href="#" class="btn edit">In-transit</a></td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
                         <td>
-                            <select name="status">
-                            <option value="">In-transit</option>
-                            <option value="">Delivered</option>
-                            </select>
+                          <select name="status">
+                          <option value="">Mombasa</option>
+                          <option value="">Nairobi</option>
+                          <option value="">Garissa</option>
+                          </select>
                         </td>
                       </tr>
                       <tr>
@@ -186,7 +197,13 @@
                         <td>Eldoret</td>
                         <td>16</td>
                         <td>150</td>
-                        <td> <a href="#" class="btn edit">In-transit</a></td>
+                        <td>
+                          <select name="status">
+                          <option value="">Mombasa</option>
+                          <option value="">Nairobi</option>
+                          <option value="">Garissa</option>
+                          </select>
+                        </td>
                       </tr>
                       <tr>
 
@@ -194,7 +211,13 @@
                         <td>Eldoret</td>
                         <td>16</td>
                         <td>150</td>
-                        <td> <a href="#" class="btn edit">In-transit</a></td>
+                        <td>
+                          <select name="status">
+                          <option value="">Mombasa</option>
+                          <option value="">Nairobi</option>
+                          <option value="">Garissa</option>
+                          </select>
+                        </td>
                       </tr>
                       <tr>
 
@@ -202,7 +225,27 @@
                         <td>Eldoret</td>
                         <td>16</td>
                         <td>150</td>
-                        <td> <a href="#" class="btn edit">Delivered</a></td>
+                        <td>
+                          <select name="status">
+                          <option value="">Mombasa</option>
+                          <option value="">Nairobi</option>
+                          <option value="">Garissa</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+
+                        <td>Marsabit</td>
+                        <td>Eldoret</td>
+                        <td>16</td>
+                        <td>150</td>
+                        <td>
+                          <select name="status">
+                          <option value="">Mombasa</option>
+                          <option value="">Nairobi</option>
+                          <option value="">Garissa</option>
+                          </select>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
