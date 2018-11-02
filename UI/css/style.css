@@ -68,6 +68,12 @@ ul li a:hover {
 	color: #E3D3E3;
 	transition: ease-in-out .5s;
 }
+.activ {
+	border: 1px solid #E3D3E3;
+	background-color: #2C066E;
+	color: #E3D3E3;
+	transition: ease-in-out .5s;
+}
 /******************BODY*****************/
 .container {
 	width: 80%;
