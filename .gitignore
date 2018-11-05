@@ -1,0 +1,6 @@
+__pycache__/
+venv
+*.pyc
+.pytest_cache/
+__init__.sublime-workspace
+.coverage
