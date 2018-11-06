@@ -4,3 +4,4 @@ venv
 .pytest_cache/
 __init__.sublime-workspace
 .coverage
+.env
