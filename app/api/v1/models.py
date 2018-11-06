@@ -29,3 +29,45 @@ class User():
         }
         cls.database[cls._id] = user
         cls._id += 1
+
+class Parcel():
+    """
+    Model for parcels
+    """
+    state = {
+        2: 'canceled',
+        1 : 'in transit'
+    }
+    database = {}
+    _id = 1
+
+    def __init__(self, destination, pickup_location, weight, status=state[1], sent_on=datetime.now):
+        self.destination = destination
+        self.pickup_location = pickup_location
+        self.weight = weight
+        self.sent_on = sent_on
+        self.status = self.status
+
+    def create_parcel(self):
+        parcel = {
+            "id": Parcel._id,
+            "destination": self.destination,
+            "pickup_location": self.pickup_location,
+            "weight":str(self.weight) + 'kg',
+            "price": 'Kshs.' + str(self.weight *50),
+            "status": self.status
+        }
+        Parcel.database[Parcel._id] = parcel
+        Parcel._id += 1
+
+    @classmethod
+    def cancel_parcel(cls, parcel_id):
+        cls.database[parcel_id]['status'] = state[2]
+
+Parcel('naks','msa',2).create_parcel()
+Parcel('nai','nax',1).create_parcel()
+Parcel('where','dere',0.5).create_parcel()
+Parcel.cancel_parcel(1)
+# i.create_parcel()
+# print(i)
+print(Parcel.database)
