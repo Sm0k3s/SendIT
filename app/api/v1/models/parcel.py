@@ -1,34 +1,4 @@
 from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
-
-class User():
-    """
-    A model for manipulating data for the users
-    """
-    Access = {
-        2: 'admin',
-        1 : 'user'
-    }
-
-    database = {}
-    _id = 1
-
-    def __init__(self, username, email, password):
-        self.username = username
-        self.email = email
-        self.password = generate_password_hash(password)
-
-    @classmethod
-    def create_user(cls, username, email, password):
-        user = {
-            "id": cls._id,
-            "username": username,
-            "password": generate_password_hash(password),
-            "email":email,
-            "role": cls.Access[2]
-        }
-        cls.database[cls._id] = user
-        cls._id += 1
 
 class Parcel():
     """
@@ -66,8 +36,9 @@ class Parcel():
     def cancel_parcel(cls, parcel_id):
         cls.database[parcel_id]['status'] = cls.state['cancel']
 
-    def get_all():
-        return Parcel.database
+    @classmethod
+    def get_all(cls):
+        return cls.database
 
     @classmethod
     def search_by_key_value(cls, key, value):
@@ -76,7 +47,7 @@ class Parcel():
             if i[key] == value:
                 res.append(i)
         return res
-        
+
 ###################################
 #         DEBUG PRINTS            #
 # #################################
@@ -87,7 +58,7 @@ class Parcel():
 # Parcel.cancel_parcel(3)
 # k = Parcel.search_by_key_value('destination', 'where')
 # print(k)
-# # print(Parcel.get_all())
+# print(Parcel.get_all())
 # print(Parcel.database.keys())
 # for key in Parcel.database.values():
 #     res = []
