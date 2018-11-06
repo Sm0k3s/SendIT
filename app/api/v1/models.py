@@ -35,18 +35,19 @@ class Parcel():
     Model for parcels
     """
     state = {
-        2: 'canceled',
-        1 : 'in transit'
+        'cancel': 'canceled',
+        'transit' : 'in transit'
     }
     database = {}
     _id = 1
 
-    def __init__(self, destination, pickup_location, weight, status=state[1], sent_on=datetime.now):
+    def __init__(self, destination, pickup_location,weight,
+                 status=state['transit'], sent_on=datetime.now):
         self.destination = destination
         self.pickup_location = pickup_location
         self.weight = weight
         self.sent_on = sent_on
-        self.status = self.status
+        self.status = status
 
     def create_parcel(self):
         parcel = {
@@ -55,19 +56,21 @@ class Parcel():
             "pickup_location": self.pickup_location,
             "weight":str(self.weight) + 'kg',
             "price": 'Kshs.' + str(self.weight *50),
-            "status": self.status
+            "status": self.status,
+            'current_location': self.pickup_location
         }
         Parcel.database[Parcel._id] = parcel
         Parcel._id += 1
 
     @classmethod
     def cancel_parcel(cls, parcel_id):
-        cls.database[parcel_id]['status'] = state[2]
+        cls.database[parcel_id]['status'] = cls.state['cancel']
 
-Parcel('naks','msa',2).create_parcel()
-Parcel('nai','nax',1).create_parcel()
-Parcel('where','dere',0.5).create_parcel()
-Parcel.cancel_parcel(1)
-# i.create_parcel()
-# print(i)
-print(Parcel.database)
+###################################
+#         DEBUG PRINTS            #
+# #################################
+# Parcel('naks','msa',2).create_parcel()
+# Parcel('nai','nax',1).create_parcel()
+# Parcel('where','dere',0.5).create_parcel()
+# Parcel.cancel_parcel(1)
+# print(Parcel.database)
