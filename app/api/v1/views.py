@@ -1,7 +1,7 @@
 # from flask import Flask
 # from flask_restful import Resource, reqparse
 from flask_restful import Resource, reqparse
-from .models.user import Parcel
+from .models.parcel import Parcel
 
 class ParcelOrder(Resource):
     """
@@ -25,13 +25,14 @@ class ParcelOrder(Resource):
     )
     def get(self):
         res = Parcel.get_all()
-        return {
-            'Message': 'Success',
-            'All parcel orders': res
-        }
+        return {'Message': 'Success', 'All parcel orders': res}, 200
+
     def post(self):
         data = ParcelOrder.parser.parse_args()
-        if data['destination'].strip() =="" or data['pickup_location'].strip() =="" or data['weight'].strip() =="":
+        if data['destination'].strip() =="" or data['pickup_location'].strip() =="" or data['weight'] =="":
             return {'Message': 'One or more fields empty'}
-        Parcel(destination = data['destination'],pickup_location = data['pickup_location'],
-               weight=data['weight']).create_parcel()
+
+        Parcel(data['destination'],data['pickup_location'],
+               data['weight']).create_parcel()
+
+        return {'Message': 'Parcel created successfully'}, 201

@@ -7,7 +7,7 @@ def create_app(config_name="DEVELOPMENT"):
     app.config.from_object(config[config_name])
 
     from app.api.v1 import v1
-    api.register
+    app.register_blueprint(v1)
     return app
 
 app = create_app()
