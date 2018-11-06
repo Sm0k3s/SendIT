@@ -66,11 +66,31 @@ class Parcel():
     def cancel_parcel(cls, parcel_id):
         cls.database[parcel_id]['status'] = cls.state['cancel']
 
+    def get_all():
+        return Parcel.database
+
+    @classmethod
+    def search_by_key_value(cls, key, value):
+        res = []
+        for i in cls.database.values():
+            if i[key] == value:
+                res.append(i)
+        return res
+        
 ###################################
 #         DEBUG PRINTS            #
 # #################################
 # Parcel('naks','msa',2).create_parcel()
 # Parcel('nai','nax',1).create_parcel()
-# Parcel('where','dere',0.5).create_parcel()
+# Parcel('where','there',0.5).create_parcel()
 # Parcel.cancel_parcel(1)
-# print(Parcel.database)
+# Parcel.cancel_parcel(3)
+# k = Parcel.search_by_key_value('destination', 'where')
+# print(k)
+# # print(Parcel.get_all())
+# print(Parcel.database.keys())
+# for key in Parcel.database.values():
+#     res = []
+#     if key['status'] == 'canceled':
+#         res.append(key)
+#     print(res)
