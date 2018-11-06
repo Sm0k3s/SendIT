@@ -25,7 +25,7 @@ class Parcel():
             "destination": self.destination,
             "pickup_location": self.pickup_location,
             "weight":str(self.weight) + 'kg',
-            "price": 'Kshs.' + str(self.weight *50),
+            "price": 'Kshs.' + str(float(self.weight) * float(50)),
             "status": self.status,
             'current_location': self.pickup_location
         }
