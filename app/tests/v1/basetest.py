@@ -11,6 +11,20 @@ class BaseTest(unittest.TestCase):
 			"weight": 5,
 			"pickup_location": "Nairobi"
 		}
+        self.new_user = {
+            "username":"groot",
+            "email":"groot@gmail.com",
+            "password":"iamgroot"
+        }
+        self.user = {
+            "username":"groot",
+            "password":"iamgroot"
+        }
+        self.invalid_user = {
+            "username":"groot",
+            "email":"    ",
+            "password":"iamgroot"
+        }
 
     def tearDown(self):
         """Destroys the test client when done"""

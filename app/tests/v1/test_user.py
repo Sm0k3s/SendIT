@@ -4,16 +4,34 @@ from basetest import BaseTest
 
 class TestUser(BaseTest):
     """User tests class"""
-    def test_user_sign(self):
-        pass
+    def test_user_signup(self):
+        """Tests that a user can sign up"""
+        resp = self.client.post('/api/v1/auth/signup', data=json.dumps(self.user),
+                                               content_type='application/json')
+        self.assertEqual(resp.status_code, 201)
 
     def test_user_login(self):
-        pass
+        #signup a new user
+        self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
+                                               content_type='application/json')
+        #Login the newly created user
+        resp = self.client.post('/api/v1/auth/login',data=json.dumps(self.user),
+                                                content_type='application/json')
+        self.assertEqual(resp.status_code, 201)
 
     def test_user_logout(self):
-        pass
+        #create a new user
+        self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
+                                               content_type='application/json')
+        #Login the newly created user
+        self.client.post('/api/v1/auth/login',data=json.dumps(self.user),
+                                                content_type='application/json')
+        #logout the user
+        resp = self.client.delete('/api/v1/users/logout')
+        self.assertEqual(resp.status_code,200) #logout
 
     def test_cant_signup_with_empty_fields(self):
-        pass
-
-    #def test_
+        #create a new user with missing fields
+        resp = self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
+                                               content_type='application/json')
+        self.assertEqual(json.loads(resp.data)['Message'], 'One or more fields empty')
