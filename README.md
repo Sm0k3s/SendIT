@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Sm0k3s/SendIT.svg?branch=ch-v1-tests-161744429)](https://travis-ci.org/Sm0k3s/SendIT)
 [![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 
