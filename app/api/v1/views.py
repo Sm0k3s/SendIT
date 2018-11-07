@@ -5,7 +5,7 @@ from .models.parcel import Parcel
 
 class ParcelOrder(Resource):
     """
-    Resource for Parcel orders /api/v1/orders
+    Resource for Parcel orders /api/v1/parcels
     """
     parser = reqparse.RequestParser()
     parser.add_argument('destination',
