@@ -1,4 +1,4 @@
-from .views.parcels import ParcelOrder, ParcelCancel
+from .views.parcels import ParcelOrder, ParcelCancel,  FindParcel
 from flask import Blueprint
 from flask_restful import Api
 
@@ -7,3 +7,4 @@ api = Api(v1)
 
 api.add_resource(ParcelOrder, '/parcels')
 api.add_resource(ParcelCancel, '/parcels/<int:parcel_id>/cancel')
+api.add_resource(FindParcel, '/parcels/<int:parcel_id>')

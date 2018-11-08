@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from ..models.parcel import Parcel
 
+
 class ParcelOrder(Resource):
     """
     Resource for Parcel orders /api/v1/parcels
@@ -35,6 +36,7 @@ class ParcelOrder(Resource):
 
         return {'Message': 'Parcel created successfully'}, 201
 
+
 class ParcelCancel(Resource):
     """
     Resource for cancel orders /api/v1/parcels/<int:parcel_id>/cancel
@@ -52,3 +54,14 @@ class ParcelCancel(Resource):
         if data['status'] == 'cancel':
             Parcel.cancel_parcel(parcel_id)
         return {'message':'status changed'}, 201
+
+
+class FindParcel(Resource):
+    """
+    Resource to get a single order by id /api/v1/parcels/<int:parcel_id>
+    """
+    def get(self, parcel_id):
+        if parcel_id in Parcel.database.keys():
+            i = Parcel.search_by_key_value('id', parcel_id)
+            return {'message':'Success',
+                    'parcel': i}
