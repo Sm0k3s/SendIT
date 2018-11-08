@@ -53,7 +53,7 @@ class ParcelCancel(Resource):
 
         if data['status'] == 'cancel':
             Parcel.cancel_parcel(parcel_id)
-        return {'message':'status changed'}, 201
+            return {'message':'status changed'}, 201
 
 
 class FindParcel(Resource):
@@ -62,6 +62,6 @@ class FindParcel(Resource):
     """
     def get(self, parcel_id):
         if parcel_id in Parcel.database.keys():
-            i = Parcel.search_by_key_value('id', parcel_id)
-            return {'message':'Success',
-                    'parcel': i}
+            i = Parcel.search_by_key_value('id', parcel_id)[0]
+            return {'message':'Success', 'parcel': i}, 200
+        return {'message':'Parcel not found'}, 404

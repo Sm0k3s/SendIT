@@ -1,6 +1,6 @@
 import json
 from app.api.v1.models.user import User
-from basetest import BaseTest
+from .basetest import BaseTest
 
 class TestUser(BaseTest):
     """User tests class"""
