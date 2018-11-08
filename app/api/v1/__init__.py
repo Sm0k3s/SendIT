@@ -1,4 +1,4 @@
-from .views import ParcelOrder
+from .views.parcels import ParcelOrder
 from flask import Blueprint
 from flask_restful import Api
 

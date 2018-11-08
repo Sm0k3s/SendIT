@@ -1,7 +1,7 @@
 # from flask import Flask
 # from flask_restful import Resource, reqparse
 from flask_restful import Resource, reqparse
-from .models.parcel import Parcel
+from ..models.parcel import Parcel
 
 class ParcelOrder(Resource):
     """

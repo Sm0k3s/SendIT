@@ -12,11 +12,11 @@ class Parcel():
     _id = 1
 
     def __init__(self, destination, pickup_location,weight,
-                 status=state['transit'], sent_on=datetime.now):
+                 status=state['transit']):
         self.destination = destination
         self.pickup_location = pickup_location
         self.weight = weight
-        self.sent_on = sent_on
+        #self.sent_on = sent_on
         self.status = status
 
     def create_parcel(self):
@@ -24,9 +24,10 @@ class Parcel():
             "id": Parcel._id,
             "destination": self.destination,
             "pickup_location": self.pickup_location,
-            "weight":str(self.weight) + 'kg',
-            "price": 'Kshs.' + str(float(self.weight) * float(50)),
+            "weight":str(self.weight) + 'grams',
+            "price": 'Kshs.' + str(float(self.weight) * float(2)),
             "status": self.status,
+            "sent_on": datetime.now().__str__(),
             'current_location': self.pickup_location
         }
         Parcel.database[Parcel._id] = parcel
@@ -42,10 +43,7 @@ class Parcel():
 
     @classmethod
     def search_by_key_value(cls, key, value):
-        res = []
-        for i in cls.database.values():
-            if i[key] == value:
-                res.append(i)
+        res = [i for i in cls.database.values() if i[key] == value]
         return res
 
 ###################################
@@ -54,6 +52,7 @@ class Parcel():
 # Parcel('naks','msa',2).create_parcel()
 # Parcel('nai','nax',1).create_parcel()
 # Parcel('where','there',0.5).create_parcel()
+# Parcel('where','over there',3).create_parcel()
 # Parcel.cancel_parcel(1)
 # Parcel.cancel_parcel(3)
 # k = Parcel.search_by_key_value('destination', 'where')
