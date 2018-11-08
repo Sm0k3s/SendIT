@@ -58,7 +58,10 @@ class Parcel():
 # k = Parcel.search_by_key_value('destination', 'where')
 # print(k)
 # print(Parcel.get_all())
-# print(Parcel.database.keys())
+# print(Parcel.database.values())
+# res = [i for i in Parcel.database.values() if i['destination'] == 'naks' and i['status'] == 'in transit']
+# print('##')
+# print(res)
 # for key in Parcel.database.values():
 #     res = []
 #     if key['status'] == 'canceled':

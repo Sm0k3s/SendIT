@@ -1,5 +1,3 @@
-# from flask import Flask
-# from flask_restful import Resource, reqparse
 from flask_restful import Resource, reqparse
 from ..models.parcel import Parcel
 
@@ -36,3 +34,21 @@ class ParcelOrder(Resource):
                data['weight']).create_parcel()
 
         return {'Message': 'Parcel created successfully'}, 201
+
+class ParcelCancel(Resource):
+    """
+    Resource for cancel orders /api/v1/parcels/<int:parcel_id>/cancel
+    """
+    parser = reqparse.RequestParser()
+    parser.add_argument('status',
+        type=str,
+        required=True,
+        help="You must provide a status."
+    )
+
+    def put(self, parcel_id):
+        data = ParcelCancel.parser.parse_args()
+
+        if data['status'] == 'cancel':
+            Parcel.cancel_parcel(parcel_id)
+        return {'message':'status changed'}, 201

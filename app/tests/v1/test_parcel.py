@@ -25,7 +25,7 @@ class TestParcel(BaseTest):
         self.client.post('/api/v1/parcels', data=json.dumps(self.order),
                                         content_type='application/json')
         #change cancels the parcel order
-        resp = self.client.put('/api/v1/1/cancel', data=json.dumps({'id':'1'}),
+        resp = self.client.put('/api/v1/parcels/1/cancel', data=json.dumps({'status':'cancel'}),
                                                content_type='application/json')
         self.assertEqual(resp.status_code, 201)
 
