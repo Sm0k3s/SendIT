@@ -8,9 +8,9 @@ class User():
     """
     Access = {
         2: 'admin',
-        1 : 'user'
+        1: 'user'
     }
-    #database dict to store users
+    # database dict to store users
     database = {}
     _id = 1
 
@@ -25,12 +25,13 @@ class User():
             "id": User._id,
             "username": self.username,
             "password": generate_password_hash(self.password),
-            "email":self.email,
+            "email": self.email,
             "joined_on": datetime.now().__str__(),
             "role": User.Access[1]
         }
         User.database[User._id] = user
         User._id += 1
+        return User.database
 
     @classmethod
     def get_all(cls):
@@ -46,6 +47,7 @@ class User():
 
 class Admin(User):
     """class for Admin."""
+
     def __init__(self, username, email, password):
         self.username = username
         self.email = email
@@ -56,7 +58,7 @@ class Admin(User):
             "id": User._id,
             "username": self.username,
             "password": generate_password_hash(self.password),
-            "email":self.email,
+            "email": self.email,
             "joined_on": datetime.now().__str__(),
             "role": User.Access[2]
         }
@@ -67,6 +69,6 @@ class Admin(User):
 #         DEBUG PRINTS            #
 # #################################
 
-User('ken','ken@ken.vk', 'pass').create_user()
-Admin('groot','ken@ken.vk', 'pass').create_user()
-print(User.get_all())
+# User('ken','ken@ken.vk', 'pass').create_user()
+# Admin('groot','ken@ken.vk', 'pass').create_user()
+# print(User.get_all())

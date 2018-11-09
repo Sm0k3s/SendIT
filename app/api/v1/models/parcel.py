@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 class Parcel():
     """
     Model for parcels
@@ -7,13 +8,13 @@ class Parcel():
 
     state = {
         'cancel': 'canceled',
-        'transit' : 'in transit'
+        'transit': 'in transit'
     }
-    #database dict to store parcels
+    # database dict to store parcels
     database = {}
     _id = 1
 
-    def __init__(self, destination, pickup_location,weight,
+    def __init__(self, destination, pickup_location, weight,
                  status=state['transit']):
         self.destination = destination
         self.pickup_location = pickup_location
@@ -26,7 +27,7 @@ class Parcel():
             "id": Parcel._id,
             "destination": self.destination,
             "pickup_location": self.pickup_location,
-            "weight":str(self.weight) + 'grams',
+            "weight": str(self.weight) + 'grams',
             "price": 'Kshs.' + str(float(self.weight) * float(2)),
             "status": self.status,
             "sent_on": datetime.now().__str__(),

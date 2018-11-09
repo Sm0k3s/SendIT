@@ -1,7 +1,9 @@
 from flask import Flask
 from config import config
 
+
 def create_app(config_name="DEVELOPMENT"):
+    """Initializes the app"""
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config[config_name])
 
@@ -11,8 +13,10 @@ def create_app(config_name="DEVELOPMENT"):
 
 app = create_app()
 
+
 @app.route('/')
 def home():
+    """The home route"""
     return 'Moin moin'
 
 if __name__ == '__main__':
