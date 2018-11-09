@@ -1,6 +1,6 @@
 """Module to test user routes"""
 import json
-from app.api.v1.models.user import User
+#from app.api.v1.models.user import User
 from .basetest import BaseTest
 
 
@@ -14,7 +14,7 @@ class TestUser(BaseTest):
         self.assertEqual(resp.status_code, 201)
 
     def test_user_login(self):
-        """Tests if a user can signup"""
+        """Tests if a user can signin"""
         # signup a new user
         self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
                          content_type='application/json')
@@ -38,7 +38,7 @@ class TestUser(BaseTest):
     def test_cant_signup_with_empty_fields(self):
         """Tests a user can cannot signup with empty(white spaces) details"""
         # create a new user with missing fields
-        resp = self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
+        resp = self.client.post('/api/v1/auth/signup', data=json.dumps(self.invalid_user),
                                 content_type='application/json')
-        self.assertEqual(json.loads(resp.data)['Message'],
+        self.assertEqual(json.loads(resp.get_data(as_text=True))['Message'],
                          'One or more fields empty')

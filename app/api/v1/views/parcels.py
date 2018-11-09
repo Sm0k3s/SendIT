@@ -12,17 +12,17 @@ class ParcelOrder(Resource):
                         type=str,
                         required=True,
                         help="You must provide a destination."
-                        )
+                       )
     parser.add_argument('pickup_location',
                         type=str,
                         required=True,
                         help="You must provide a pickup_location."
-                        )
+                       )
     parser.add_argument('weight',
                         type=int,
                         required=True,
                         help="You must provide weight."
-                        )
+                       )
 
     def get(self):
         """Gets all parcels from the database"""
@@ -50,9 +50,10 @@ class ParcelCancel(Resource):
                         type=str,
                         required=True,
                         help="You must provide a status."
-                        )
+                       )
 
     def put(self, parcel_id):
+        """cancels an order"""
         data = ParcelCancel.parser.parse_args()
 
         if data['status'] == 'cancel':

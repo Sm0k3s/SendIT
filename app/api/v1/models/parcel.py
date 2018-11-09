@@ -50,6 +50,7 @@ class Parcel():
         res = [i for i in cls.database.values() if i[key] == value]
         return res
 
+    @classmethod
     def change_current_location(cls, parcel_id, location):
         """This method will only be available to the admin"""
         cls.database[parcel_id]['current_location'] = location

@@ -1,6 +1,6 @@
 """Module for the user model"""
-from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User():
@@ -29,7 +29,6 @@ class User():
         }
         User.database[User._id] = user
         User._id += 1
-        return User.database
 
     @classmethod
     def get_all(cls):
@@ -63,11 +62,3 @@ class Admin(User):
         }
         User.database[User._id] = user
         User._id += 1
-
-###################################
-#         DEBUG PRINTS            #
-# #################################
-
-# User('ken','ken@ken.vk', 'pass').create_user()
-# Admin('groot','ken@ken.vk', 'pass').create_user()
-# print(User.get_all())

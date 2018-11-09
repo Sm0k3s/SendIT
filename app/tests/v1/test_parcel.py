@@ -1,6 +1,6 @@
 """Module to test parcel routes"""
 import json
-from app.api.v1.models.parcel import Parcel
+#from app.api.v1.models.parcel import Parcel
 from .basetest import BaseTest
 
 
