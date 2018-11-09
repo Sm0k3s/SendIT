@@ -4,10 +4,12 @@ class Parcel():
     """
     Model for parcels
     """
+
     state = {
         'cancel': 'canceled',
         'transit' : 'in transit'
     }
+    #database dict to store parcels
     database = {}
     _id = 1
 
@@ -16,10 +18,10 @@ class Parcel():
         self.destination = destination
         self.pickup_location = pickup_location
         self.weight = weight
-        #self.sent_on = sent_on
         self.status = status
 
     def create_parcel(self):
+        """Creates a new parcel and adds the time it was sent"""
         parcel = {
             "id": Parcel._id,
             "destination": self.destination,
@@ -35,16 +37,23 @@ class Parcel():
 
     @classmethod
     def cancel_parcel(cls, parcel_id):
+        """Cancels a parcel with the id provided"""
         cls.database[parcel_id]['status'] = cls.state['cancel']
 
     @classmethod
     def get_all(cls):
+        """Returns all the parcels in the dict database"""
         return cls.database
 
     @classmethod
     def search_by_key_value(cls, key, value):
+        """searches the dict database"""
         res = [i for i in cls.database.values() if i[key] == value]
         return res
+
+    def change_current_location(cls, parcel_id, location):
+        """This method will only be available to the admin"""
+        cls.database[parcel_id]['current_location'] = location
 
 ###################################
 #         DEBUG PRINTS            #
