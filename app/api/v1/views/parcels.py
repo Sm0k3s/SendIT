@@ -1,3 +1,4 @@
+"""Resources for the parcel views"""
 from flask_restful import Resource, reqparse
 from ..models.parcel import Parcel
 

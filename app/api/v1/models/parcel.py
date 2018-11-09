@@ -1,3 +1,4 @@
+"""Module for the parcel model"""
 from datetime import datetime
 
 
@@ -6,10 +7,7 @@ class Parcel():
     Model for parcels
     """
 
-    state = {
-        'cancel': 'canceled',
-        'transit': 'in transit'
-    }
+    state = {'cancel': 'canceled', 'transit': 'in transit'}
     # database dict to store parcels
     database = {}
     _id = 1

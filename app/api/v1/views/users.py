@@ -1,3 +1,4 @@
+"""Resources for the user views"""
 from flask_restful import Resource, reqparse
 import re
 from ..models.user import User
@@ -28,8 +29,11 @@ class SignUp(Resource):
     def post(self):
         """Registers an account"""
         data = SignUp.parser.parse_args()
-        i = User(data['username'], data['email'],
+        if data['username'].strip() == '' or data['password'].strip() == '':
+            return {'Message': 'One or more fields empty'}
+        else:                    
+            i = User(data['username'], data['email'],
                  data['password']).create_user()
-
-        return {'message': 'account successfully registered', 'user': i}, 201
+            return {'message': 'account successfully registered', 'user': i}, 201
+        # return {'message': 'account successfully registered', 'user': i}, 201
         # return i

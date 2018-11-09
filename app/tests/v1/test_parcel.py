@@ -1,3 +1,4 @@
+"""Module to test parcel routes"""
 import json
 from app.api.v1.models.parcel import Parcel
 from .basetest import BaseTest
@@ -11,8 +12,8 @@ class TestParcel(BaseTest):
         resp = self.client.post('/api/v1/parcels', data=json.dumps(self.order),
                                 content_type='application/json')
         self.assertEqual(resp.status_code, 201)
-        self.assertEqual(json.loads(resp.get_data(as_text=True))[
-                         'Message'], 'Parcel created successfully')
+        self.assertEqual(json.loads(resp.get_data(as_text=True))['Message'],
+                         'Parcel created successfully')
 
     def test_get_all_parcels(self):
         """Tests return of all delivery orders url=/api/v1/parcels"""
@@ -59,5 +60,5 @@ class TestParcel(BaseTest):
         resp = self.client.put('/api/v1/parcels/1', data=json.dumps({'destination': 'new destination'}),
                                content_type='application/json')
         self.assertEqual(resp.status_code, 201)
-        self.assertIn(json.loads(resp.data)[
-                      'Message'], 'Parcel updated successfully')
+        self.assertIn(json.loads(resp.data)['Message'],
+                      'Parcel updated successfully')

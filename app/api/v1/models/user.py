@@ -1,3 +1,4 @@
+"""Module for the user model"""
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
@@ -6,10 +7,7 @@ class User():
     """
     A model for manipulating data for the users
     """
-    Access = {
-        2: 'admin',
-        1: 'user'
-    }
+    Access = {2: 'admin', 1: 'user'}
     # database dict to store users
     database = {}
     _id = 1
@@ -24,7 +22,7 @@ class User():
         user = {
             "id": User._id,
             "username": self.username,
-            "password": generate_password_hash(self.password),
+            "password": self.password,
             "email": self.email,
             "joined_on": datetime.now().__str__(),
             "role": User.Access[1]
@@ -54,10 +52,11 @@ class Admin(User):
         self.password = generate_password_hash(password)
 
     def create_user(self):
+        """Creates an admin user"""
         user = {
             "id": User._id,
             "username": self.username,
-            "password": generate_password_hash(self.password),
+            "password": self.password,
             "email": self.email,
             "joined_on": datetime.now().__str__(),
             "role": User.Access[2]

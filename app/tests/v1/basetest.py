@@ -1,3 +1,4 @@
+"""Module to to declare test dependencies"""
 import unittest
 from run import create_app
 
