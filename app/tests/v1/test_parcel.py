@@ -9,6 +9,7 @@ class TestParcel(BaseTest):
         resp = self.client.post('/api/v1/parcels', data=json.dumps(self.order),
                                                content_type='application/json')
         self.assertEqual(resp.status_code, 201)
+        self.assertEqual(json.loads(resp.get_data(as_text=True))['Message'], 'Parcel created successfully')
 
     def test_get_all_parcels(self):
         """Tests return of all delivery orders url=/api/v1/parcels"""

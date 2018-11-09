@@ -1,6 +1,7 @@
 import os
 
 class Config():
+    """Config defaults"""
     DEBUG = False
     TESTING = False
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
