@@ -21,7 +21,7 @@ class TestUser(BaseTest):
         # Login the newly created user
         resp = self.client.post('/api/v1/auth/login', data=json.dumps(self.user),
                                 content_type='application/json')
-        self.assertEqual(resp.status_code, 201)
+        self.assertEqual(resp.status_code, 200)
 
     def test_user_logout(self):
         """Tests if a user can logout"""
