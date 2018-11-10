@@ -32,11 +32,14 @@ class ParcelOrder(Resource):
     def post(self):
         """Creates a parcel order"""
         data = ParcelOrder.parser.parse_args()
-        if data['destination'].strip() == "" or data['pickup_location'].strip() == "" or data['weight'] == "":
+        destination = data['destination'].strip()
+        pickup = data['pickup_location'].strip()
+        weight = data['weight']
+
+        if destination == "" or pickup == "" or weight == "":
             return {'Message': 'One or more fields empty'}
 
-        Parcel(data['destination'], data['pickup_location'],
-               data['weight']).create_parcel()
+        Parcel(destination, pickup, weight).create_parcel()
 
         return {'Message': 'Parcel created successfully'}, 201
 
@@ -56,10 +59,10 @@ class ParcelCancel(Resource):
         """cancels an order"""
         data = ParcelCancel.parser.parse_args()
 
-        if data['status'] == 'cancel':
+        if parcel_id in Parcel.database.keys() and data['status'] == 'cancel':
             Parcel.cancel_parcel(parcel_id)
             return {'message': 'status changed'}, 201
-
+        return {'message': 'Parcel not found'}, 404
 
 class FindParcel(Resource):
     """

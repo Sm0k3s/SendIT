@@ -1,6 +1,6 @@
 """Module for the parcel model"""
 from datetime import datetime
-
+from .user import User
 
 class Parcel():
     """
@@ -13,11 +13,12 @@ class Parcel():
     _id = 1
 
     def __init__(self, destination, pickup_location, weight,
-                 status=state['transit']):
+                 status=state['transit'], sender_id=1):
         self.destination = destination
         self.pickup_location = pickup_location
         self.weight = weight
         self.status = status
+        self.sender_id = sender_id if len(User.database) <= 1 else len(User.database)
 
     def create_parcel(self):
         """Creates a new parcel and adds the time it was sent"""
@@ -29,7 +30,8 @@ class Parcel():
             "price": 'Kshs.' + str(float(self.weight) * float(2)),
             "status": self.status,
             "sent_on": datetime.now().__str__(),
-            'current_location': self.pickup_location
+            "current_location": self.pickup_location,
+            "sender_id": self.sender_id
         }
         Parcel.database[Parcel._id] = parcel
         Parcel._id += 1
