@@ -1,7 +1,7 @@
 """Module to to declare test dependencies"""
 import unittest
 from run import create_app
-
+# from app.api.v1.models.parcel import Parcel
 
 class BaseTest(unittest.TestCase):
     """The base test class"""

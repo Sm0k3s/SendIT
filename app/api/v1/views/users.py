@@ -2,6 +2,7 @@
 from flask_restful import Resource, reqparse
 import re
 from ..models.user import User
+from ..models.parcel import Parcel
 
 
 class SignUp(Resource):
@@ -35,3 +36,12 @@ class SignUp(Resource):
 
         User(data['username'], data['email'], data['password']).create_user()
         return {'message': 'account successfully registered'}, 201
+
+
+class UserParcels(Resource):
+    """Resource to get user parcels by id"""
+    def get(self,user_id):
+        i = Parcel.search_by_key_value('sender_id', user_id)
+        if i:
+            return {'message': 'Success', 'all parcels created by user {}'.format(user_id): i}, 200
+        return {'message': 'no parcel found because the user does not exist'}, 404

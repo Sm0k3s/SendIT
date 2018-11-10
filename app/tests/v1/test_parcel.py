@@ -2,7 +2,7 @@
 import json
 #from app.api.v1.models.parcel import Parcel
 from .basetest import BaseTest
-
+from app.api.v1.models.parcel import Parcel
 
 class TestParcel(BaseTest):
     """Class to test parcels"""
@@ -48,7 +48,11 @@ class TestParcel(BaseTest):
         Get all the orders of the user whose id has been provided
         url=/api/v1/users/<int:user_id>/parcels
         """
-        resp = self.client.get('/api/users/1/parcels/')
+        self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
+                                content_type='application/json')
+        self.client.post('/api/v1/parcels', data=json.dumps(self.order),
+                         content_type='application/json')
+        resp = self.client.get('/api/v1/users/1/parcels')
         self.assertEqual(resp.status_code, 200)
 
     def test_modify_the_destination(self):
@@ -57,7 +61,8 @@ class TestParcel(BaseTest):
         self.client.post('/api/v1/parcels', data=json.dumps(self.order),
                          content_type='application/json')
         # modify the destination
-        resp = self.client.put('/api/v1/parcels/1', data=json.dumps({'destination': 'new destination'}),
+        resp = self.client.put('/api/v1/parcels/1', data=json.dumps(
+                               {'destination': 'new destination'}),
                                content_type='application/json')
         self.assertEqual(resp.status_code, 201)
         self.assertIn(json.loads(resp.data)['Message'],

@@ -13,12 +13,12 @@ class Parcel():
     _id = 1
 
     def __init__(self, destination, pickup_location, weight,
-                 status=state['transit'], sender_id=1):
+                 status=state['transit']):
         self.destination = destination
         self.pickup_location = pickup_location
         self.weight = weight
         self.status = status
-        self.sender_id = sender_id if len(User.database) <= 1 else len(User.database)
+        # self.sender_id = sender_id if len(User.database) <= 1 else len(User.database)
 
     def create_parcel(self):
         """Creates a new parcel and adds the time it was sent"""
@@ -31,7 +31,7 @@ class Parcel():
             "status": self.status,
             "sent_on": datetime.now().__str__(),
             "current_location": self.pickup_location,
-            "sender_id": self.sender_id
+            "sender_id": 1 if len(User.database) <= 1 else len(User.database)
         }
         Parcel.database[Parcel._id] = parcel
         Parcel._id += 1
@@ -56,6 +56,9 @@ class Parcel():
     def change_current_location(cls, parcel_id, location):
         """This method will only be available to the admin"""
         cls.database[parcel_id]['current_location'] = location
+
+    # def get_parcel_by_userid(self,user_id):
+    #
 
 ###################################
 #         DEBUG PRINTS            #
