@@ -50,7 +50,7 @@ class UserParcels(Resource):
 
 
 class UserSignin(Resource):
-    """Resource for signing in a user"""
+    """Resource for signing in a user /api/v1/auth/login"""
     parser = reqparse.RequestParser()
     parser.add_argument('username',
                         type=str,

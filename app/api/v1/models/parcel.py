@@ -57,6 +57,11 @@ class Parcel():
         """This method will only be available to the admin"""
         cls.database[parcel_id]['current_location'] = location
 
+    @classmethod
+    def change_the_destination(cls, parcel_id, destination):
+        """Modifies the destination"""
+        cls.database[parcel_id]['destination'] = destination
+
     # def get_parcel_by_userid(self,user_id):
     #
 

@@ -68,10 +68,25 @@ class FindParcel(Resource):
     """
     Resource to get a single order by id /api/v1/parcels/<int:parcel_id>
     """
+    parser = reqparse.RequestParser()
+    parser.add_argument('destination',
+                        type=str,
+                        required=True,
+                        help="You must provide a new destination."
+                       )
 
     def get(self, parcel_id):
         """Gets a single order that matches the id provided"""
         if parcel_id in Parcel.database.keys():
             i = Parcel.search_by_key_value('id', parcel_id)[0]
             return {'message': 'Success', 'parcel': i}, 200
+        return {'message': 'Parcel not found'}, 404
+
+    def put(self,parcel_id):
+        """modifies a parcels destination"""
+        data = FindParcel.parser.parse_args()
+        if parcel_id in Parcel.database.keys():
+            Parcel.change_the_destination(parcel_id, data['destination'])
+            i = Parcel.search_by_key_value('id', parcel_id)[0]
+            return {'message':'parcel updated successfully','updated parcel':i}, 201
         return {'message': 'Parcel not found'}, 404

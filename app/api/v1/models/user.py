@@ -31,7 +31,7 @@ class User():
         User._id += 1
 
     @classmethod
-    def get_all(cls):
+    def get_all_users(cls):
         """Get all users"""
         return cls.database
 

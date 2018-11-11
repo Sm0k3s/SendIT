@@ -59,12 +59,12 @@ class TestParcel(BaseTest):
     def test_modify_the_destination(self):
         """Tests that the destination was modified"""
         # create a parcel order
+        new_dest = {"destination":"J town"}
         self.client.post('/api/v1/parcels', data=json.dumps(self.order),
                          content_type='application/json')
         # modify the destination
-        resp = self.client.put('/api/v1/parcels/1', data=json.dumps(
-                               {'destination': 'new destination'}),
+        resp = self.client.put('/api/v1/parcels/1', data=json.dumps(new_dest),
                                content_type='application/json')
         self.assertEqual(resp.status_code, 201)
-        self.assertIn(json.loads(resp.data)['Message'],
-                      'Parcel updated successfully')
+        self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
+                      'parcel updated successfully')
