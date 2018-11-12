@@ -51,9 +51,12 @@ class TestParcel(BaseTest):
         """
         self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
                                 content_type='application/json')
+        self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
+                                content_type='application/json')
+
         self.client.post('/api/v1/parcels', data=json.dumps(self.order),
                          content_type='application/json')
-        resp = self.client.get('/api/v1/users/1/parcels')
+        resp = self.client.get('/api/v1/users/2/parcels')
         self.assertEqual(resp.status_code, 200)
 
     def test_modify_the_destination(self):
