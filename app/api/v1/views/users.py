@@ -46,7 +46,7 @@ class UserParcels(Resource):
         if i:
             return {'message': 'Success',
                     'all parcels created by user {}'.format(user_id): i}, 200
-        return {'message': 'no parcel found because the user does not exist'}, 404
+        return {'message': 'no parcels found, invalid user'}, 404
 
 
 class UserSignin(Resource):
@@ -75,3 +75,15 @@ class UserSignin(Resource):
         if check_password_hash(user['password'],data['password']):
             return {'message':'successfully signed in'}, 200
         return {'message':'invalid credentials'},401
+
+class UserSignout(Resource):
+    """
+    Without implementing authentication the sign out assumes that the
+    current user is the last user who signed up thus he is the one who will be
+    signed out /api/v1/users/logout
+    """
+    def delete(self):
+        if len(User.database) < 1:
+            return {'message':'Please login'}, 401
+        user = User.search_by_key_value('id', len(User.database))[0]
+        return {'message':'successfully logged out', 'user': user}
