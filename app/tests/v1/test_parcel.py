@@ -44,20 +44,20 @@ class TestParcel(BaseTest):
         resp = self.client.get('/api/v1/parcels/1')
         self.assertEqual(resp.status_code, 200)
 
-    # def test_get_parcels_by_a_specific_user(self):
-    #     """
-    #     Get all the orders of the user whose id has been provided
-    #     url=/api/v1/users/<int:user_id>/parcels
-    #     """
-    #     self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
-    #                             content_type='application/json')
-    #     self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
-    #                             content_type='application/json')
-    #
-    #     self.client.post('/api/v1/parcels', data=json.dumps(self.order),
-    #                      content_type='application/json')
-    #     resp = self.client.get('/api/v1/users/2/parcels')
-    #     self.assertEqual(resp.status_code, 200)
+    def test_get_parcels_by_a_specific_user(self):
+        """
+        Get all the orders of the user whose id has been provided
+        url=/api/v1/users/<int:user_id>/parcels
+        """
+        self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
+                                content_type='application/json')
+        self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
+                                content_type='application/json')
+
+        self.client.post('/api/v1/parcels', data=json.dumps(self.order),
+                         content_type='application/json')
+        resp = self.client.get('/api/v1/users/2/parcels')
+        self.assertEqual(resp.status_code, 200)
 
     def test_modify_the_destination(self):
         """Tests that the destination was modified"""
