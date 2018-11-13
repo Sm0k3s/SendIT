@@ -1,7 +1,8 @@
 [![Build Status](https://travis-ci.org/Sm0k3s/SendIT.svg?branch=ft-logout-user-v1-161869682)](https://travis-ci.org/Sm0k3s/SendIT)
-[![Coverage Status](https://coveralls.io/repos/github/Sm0k3s/SendIT/badge.svg?branch=ft-logout-user-v1-161869682)](https://coveralls.io/github/Sm0k3s/SendIT?branch=ft-logout-user-v1-161869682)
+[![Coverage Status](https://coveralls.io/repos/github/Sm0k3s/SendIT/badge.svg?branch=ch-update-tests-161908326)](https://coveralls.io/github/Sm0k3s/SendIT?branch=ch-update-tests-161908326)
 [![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+
 
 # SendIT
  SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.
@@ -39,7 +40,7 @@ $ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
 * Run the app
- 
+
 ```bash
 $ export FLASK_APP=run.py
 $ flask run
@@ -47,7 +48,7 @@ $ flask run
 * Test the endpoints on Postman/Curl/Insomnia
 
 Open postman and navigate to the localhost
-```bash 
+```bash
 http://localhost:5000/
 ```
 Test the available endpoints
