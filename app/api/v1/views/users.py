@@ -67,11 +67,11 @@ class UserSignin(Resource):
         data = UserSignin.parser.parse_args()
         if len(User.database) < 1:
             return {'message':'user not found please create an account'}
-        user = User.search_by_key_value('username', data['username'])[0]
         if data['username'].strip() == '' or data['password'].strip() == '':
             return {'message':'Please enter valid details'}
-        if not user:
+        if not User.search_by_key_value('username', data['username']):
             return {'message':'user not found'},401
+        user = User.search_by_key_value('username', data['username'])[0]
         if check_password_hash(user['password'],data['password']):
             return {'message':'successfully signed in'}, 200
         return {'message':'invalid credentials'},401
