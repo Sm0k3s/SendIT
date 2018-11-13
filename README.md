@@ -15,6 +15,10 @@
 5. Users can see the details of a delivery order.
 6. Admin can change the ​ status​​ and present​​ ​ location​​ of a parcel delivery order.
 
+## The User Interface
+* Follow the link below to access it
+* [SendIT UI](https://sm0k3s.github.io/SendIT/UI/)
+
 ## Installation
 
 * Clone this repo
@@ -34,6 +38,19 @@ $ source venv/bin/activate
 ```bash
 $ pip install -r requirements.txt
 ```
+* Run the app
+ 
+```bash
+$ export FLASK_APP=run.py
+$ flask run
+```
+* Test the endpoints on Postman/Curl/Insomnia
+
+Open postman and navigate to the localhost
+```bash 
+http://localhost:5000/
+```
+Test the available endpoints
 
 ## Available endpoints
 |  Endpoint  | Description  |
