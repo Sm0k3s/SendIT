@@ -5,3 +5,52 @@
 
 # SendIT
  SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.
+
+## Required Features
+
+1. Users can create an account and log in.
+2. Users can create a parcel delivery order.
+3. Users can change the destination of a parcel delivery order.
+4. Users can cancel a parcel delivery order.
+5. Users can see the details of a delivery order.
+6. Admin can change the ​ status​​ and present​​ ​ location​​ of a parcel delivery order.
+
+## Installation
+
+* Clone this repo
+
+```bash
+$ git clone https://github.com/sm0k3s/SendIT.git
+```
+* Cd into it
+* Make a virtual environment and activate it
+
+```bash
+$ python3 -m venv venv 	
+$ source venv/bin/activate		
+```
+* Install the dependencies
+
+```bash
+$ pip install -r requirements.txt
+```
+
+## Available endpoints
+|  Endpoint  | Description  |
+|  ---  | --- |
+| `POST api/v1/auth/signup` | Creates a new user |
+| `POST api/v1/auth/login`  | Users can log in to their accounts |
+| `DELETE api/v1/users/logout` | Users can logout |
+| `POST api/v1/parcels` | Creates a parcel delivery order |
+| `GET api/v1/parcels` | Gets all parcel delivery orders |
+| `PUT api/v1/parcels/<parcel_id>/cancel` | User can cancel a parcel order |
+| `GET api/v1/parcels/<parcel_id>` | Gets a specific parcel by its id |
+| `GET api/v1/users/<user_id>/parcels` | Gets parcel orders by a specific user |
+| `PUT api/v1/parcels/<parcel_id>` | Edits the destination of a parcel order |
+
+## Running tests
+* Cd into the directory where the app is located at and
+run :
+```bash
+$ pytest --cov app  #with coverage
+```
