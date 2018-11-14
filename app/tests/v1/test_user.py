@@ -46,8 +46,8 @@ class TestUser(BaseTest):
         # create a new user with missing fields
         resp = self.client.post('/api/v1/auth/signup', data=json.dumps(self.invalid_user),
                                 content_type='application/json')
-        self.assertEqual(json.loads(resp.get_data(as_text=True))['Message'],
-                         'One or more fields empty')
+        self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
+                         'one or more fields empty')
 
     def test_cant_login_with_empty_fields(self):
         """Tests a user can cannot signup with empty(white spaces) details"""
@@ -55,7 +55,7 @@ class TestUser(BaseTest):
         resp = self.client.post('/api/v1/auth/login', data=json.dumps(empty_user),
                                 content_type='application/json')
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
-                         'Please enter valid details')
+                         'please enter valid details')
 
     def test_cant_get_parcels_of_none_existent_user(self):
         """Tests that you cant get parcels from a user who isnt registered"""

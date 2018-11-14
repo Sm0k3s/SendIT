@@ -12,14 +12,14 @@ class TestParcel(BaseTest):
         resp = self.client.post('/api/v1/parcels', data=json.dumps(self.order),
                                 content_type='application/json')
         self.assertEqual(resp.status_code, 201)
-        self.assertEqual(json.loads(resp.get_data(as_text=True))['Message'],
-                         'Parcel created successfully')
+        self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
+                         'parcel created successfully')
 
     def test_get_all_parcels(self):
         """Tests return of all delivery orders url=/api/v1/parcels"""
         resp = self.client.get('/api/v1/parcels')
         self.assertEqual(resp.status_code, 200)
-        self.assertIn('All parcel orders',json.loads(resp.get_data(as_text=True)))
+        self.assertIn('parcels',json.loads(resp.get_data(as_text=True)))
 
     def test_cancel_parcel(self):
         """
@@ -48,8 +48,8 @@ class TestParcel(BaseTest):
         resp = self.client.get('/api/v1/parcels/1')
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
-                         'Success')
-        self.assertIn('parcel',json.loads(resp.get_data(as_text=True)))
+                         'success')
+        self.assertIn('data',json.loads(resp.get_data(as_text=True)))
 
     def test_get_parcels_by_a_specific_user(self):
         """
@@ -68,7 +68,7 @@ class TestParcel(BaseTest):
         self.assertIn('all parcels created by user 2',
                       json.loads(resp.get_data(as_text=True)))
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
-                         'Success')
+                         'success')
 
     def test_modify_the_destination(self):
         """Tests that the destination was modified"""
@@ -82,4 +82,4 @@ class TestParcel(BaseTest):
         self.assertEqual(resp.status_code, 201)
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
                       'parcel updated successfully')
-        self.assertIn('updated parcel', json.loads(resp.get_data(as_text=True)))
+        self.assertIn('data', json.loads(resp.get_data(as_text=True)))

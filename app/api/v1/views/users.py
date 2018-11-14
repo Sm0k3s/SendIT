@@ -33,10 +33,11 @@ class SignUp(Resource):
         """Registers an account"""
         data = SignUp.parser.parse_args()
         if data['username'].strip() == '' or data['password'].strip() == '' or data['email'].strip() == '':
-            return {'Message': 'One or more fields empty'}
+            return {'message': 'one or more fields empty'}
 
         User(data['username'], data['email'], data['password']).create_user()
-        return {'message': 'account successfully registered'}, 201
+        i = {'username': data['username'], 'email': data['email']}
+        return {'message': 'account successfully registered', 'data': i}, 201
 
 
 class UserParcels(Resource):
@@ -44,7 +45,7 @@ class UserParcels(Resource):
     def get(self,user_id):
         i = Parcel.search_by_key_value('sender_id', user_id)
         if i:
-            return {'message': 'Success',
+            return {'message': 'success',
                     'all parcels created by user {}'.format(user_id): i}, 200
         return {'message': 'no parcels found, invalid user'}, 404
 
@@ -68,12 +69,13 @@ class UserSignin(Resource):
         if len(User.database) < 1:
             return {'message':'user not found please create an account'}
         if data['username'].strip() == '' or data['password'].strip() == '':
-            return {'message':'Please enter valid details'}
+            return {'message':'please enter valid details'}
         if not User.search_by_key_value('username', data['username']):
             return {'message':'user not found'},401
         user = User.search_by_key_value('username', data['username'])[0]
         if check_password_hash(user['password'],data['password']):
-            return {'message':'successfully signed in'}, 200
+            i = {'username':user['username'], 'email':user['email']}
+            return {'message':'successfully signed in', 'data': i}, 200
         return {'message':'invalid credentials'},401
 
 class UserSignout(Resource):
@@ -86,4 +88,5 @@ class UserSignout(Resource):
         if len(User.database) < 1:
             return {'message':'Please login'}, 401
         user = User.search_by_key_value('id', len(User.database))[0]
-        return {'message':'successfully logged out', 'user': user}
+        i = {'username':user['username'], 'email':user['email']}
+        return {'message':'successfully logged out', 'data': i}
