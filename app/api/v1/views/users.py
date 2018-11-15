@@ -38,6 +38,10 @@ class SignUp(Resource):
             return {'message':'please enter a valid username'}, 401
         if not Validators.check_email(data['email']):
             return {'message':'please enter a valid email'}, 401
+        if not len(data['password'].strip()) >= 6:
+            return {'message': 'password must be atleast six characters long'}, 401
+        if not Validators.check_password(data['password']):
+            return {'message': 'password should have a mixed combination'} 
         if User.search_by_key_value('username', data['username']):
             return {'message':'username already exists try another'}, 401
         if User.search_by_key_value('email', data['email']):

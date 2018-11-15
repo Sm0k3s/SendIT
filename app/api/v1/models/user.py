@@ -3,7 +3,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash
 
 
-class User():
+class User:
     """
     A model for manipulating data for the users
     """
