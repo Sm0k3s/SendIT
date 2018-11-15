@@ -3,7 +3,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash
 
 
-class User:
+class User():
     """
     A model for manipulating data for the users
     """
@@ -12,10 +12,11 @@ class User:
     database = {}
     _id = 1
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password, role="user"):
         self.username = username
         self.email = email
         self.password = generate_password_hash(password)
+        self.role = role
 
     def create_user(self):
         """Creates a new user and adds the time they joined"""
@@ -25,7 +26,7 @@ class User:
             "password": self.password,
             "email": self.email,
             "joined_on": datetime.now().__str__(),
-            "role": User.Access[1]
+            "role": self.role
         }
         User.database[User._id] = user
         User._id += 1
@@ -45,20 +46,6 @@ class User:
 class Admin(User):
     """class for Admin."""
 
-    def __init__(self, username, email, password):
-        self.username = username
-        self.email = email
-        self.password = generate_password_hash(password)
-
-    def create_user(self):
-        """Creates an admin user"""
-        user = {
-            "id": User._id,
-            "username": self.username,
-            "password": self.password,
-            "email": self.email,
-            "joined_on": datetime.now().__str__(),
-            "role": User.Access[2]
-        }
-        User.database[User._id] = user
-        User._id += 1
+    def __init__(self, username, email, password, role="admin"):
+        super().__init__(username, email, password, role)
+        self.role = "admin"

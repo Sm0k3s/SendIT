@@ -64,28 +64,3 @@ class Parcel():
     def change_the_destination(cls, parcel_id, destination):
         """Modifies the destination"""
         cls.database[parcel_id]['destination'] = destination
-
-    # def get_parcel_by_userid(self,user_id):
-    #
-
-###################################
-#         DEBUG PRINTS            #
-# #################################
-# Parcel('naks','msa',2).create_parcel()
-# Parcel('nai','nax',1).create_parcel()
-# Parcel('where','there',0.5).create_parcel()
-# Parcel('where','over there',3).create_parcel()
-# Parcel.cancel_parcel(1)
-# Parcel.cancel_parcel(3)
-# k = Parcel.search_by_key_value('destination', 'where')
-# print(k)
-# print(Parcel.get_all())
-# print(Parcel.database.values())
-# res = [i for i in Parcel.database.values() if i['destination'] == 'naks' and i['status'] == 'in transit']
-# print('##')
-# print(res)
-# for key in Parcel.database.values():
-#     res = []
-#     if key['status'] == 'canceled':
-#         res.append(key)
-#     print(res)

@@ -1,7 +1,6 @@
 """Resources for the user views"""
 from flask_restful import Resource, reqparse
 from werkzeug.security import check_password_hash
-import re
 from ..models.user import User
 from ..models.parcel import Parcel
 from app.api.utils.validators import Validators
@@ -10,7 +9,6 @@ from app.api.utils.validators import Validators
 class SignUp(Resource):
     """
     Resource for signing up /api/v1/auth/signup
-
     """
     parser = reqparse.RequestParser()
     parser.add_argument('username',
@@ -35,17 +33,17 @@ class SignUp(Resource):
         if data['username'].strip() == '' or data['password'].strip() == '' or data['email'].strip() == '':
             return {'message': 'one or more fields empty'}
         if not Validators.check_username(data['username']):
-            return {'message':'please enter a valid username'}, 401
+            return {'message': 'please enter a valid username'}, 401
         if not Validators.check_email(data['email']):
-            return {'message':'please enter a valid email'}, 401
+            return {'message': 'please enter a valid email'}, 401
         if not len(data['password'].strip()) >= 6:
             return {'message': 'password must be atleast six characters long'}, 401
         if not Validators.check_password(data['password']):
-            return {'message': 'password should have a mixed combination'} 
+            return {'message': 'password should have a mixed combination'}
         if User.search_by_key_value('username', data['username']):
-            return {'message':'username already exists try another'}, 401
+            return {'message': 'username already exists try another'}, 401
         if User.search_by_key_value('email', data['email']):
-            return {'message':'email already exists try another'}, 401
+            return {'message': 'email already exists try another'}, 401
         User(data['username'], data['email'], data['password']).create_user()
         i = {'username': data['username'], 'email': data['email']}
         return {'message': 'account successfully registered', 'data': i}, 201
@@ -78,15 +76,15 @@ class UserSignin(Resource):
         """Method to login"""
         data = UserSignin.parser.parse_args()
         if len(User.database) < 1:
-            return {'message':'user not found please create an account'}
+            return {'message': 'user not found please create an account'}
         if data['username'].strip() == '' or data['password'].strip() == '':
-            return {'message':'please enter valid details'}
+            return {'message': 'please enter valid details'}
         if not User.search_by_key_value('username', data['username']):
-            return {'message':'user not found'},401
+            return {'message': 'user not found'},401
         user = User.search_by_key_value('username', data['username'])[0]
         if check_password_hash(user['password'],data['password']):
             i = {'username':user['username'], 'email':user['email']}
-            return {'message':'successfully signed in', 'data': i}, 200
+            return {'message': 'successfully signed in', 'data': i}, 200
         return {'message':'invalid credentials'},401
 
 class UserSignout(Resource):
@@ -97,7 +95,7 @@ class UserSignout(Resource):
     """
     def delete(self):
         if len(User.database) < 1:
-            return {'message':'Please login'}, 401
+            return {'message': 'Please login'}, 401
         user = User.search_by_key_value('id', len(User.database))[0]
         i = {'username':user['username'], 'email':user['email']}
-        return {'message':'successfully logged out', 'data': i}
+        return {'message': 'successfully logged out', 'data': i}
