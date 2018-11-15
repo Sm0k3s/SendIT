@@ -11,9 +11,11 @@ class BaseTest(unittest.TestCase):
         self.app = create_app(config_name="TESTING")
         self.client = self.app.test_client()
         self.order = {
+            "title": "A bag of",
             "destination": "Kajiado  ",
             "weight": 5,
-            "pickup_location": "Nairobi"
+            "pickup_location": "Nairobi",
+            "description": ""
         }
         self.new_user = {
             "username": "groot",

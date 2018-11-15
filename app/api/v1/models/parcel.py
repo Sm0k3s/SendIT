@@ -12,18 +12,21 @@ class Parcel():
     database = {}
     _id = 1
 
-    def __init__(self, destination, pickup_location, weight,
+    def __init__(self,title,destination, pickup_location, weight,description=" ",
                  status=state['transit']):
+        self.title = title
         self.destination = destination
         self.pickup_location = pickup_location
         self.weight = weight
         self.status = status
-        # self.sender_id = sender_id if len(User.database) <= 1 else len(User.database)
+        self.description = description
 
     def create_parcel(self):
         """Creates a new parcel and adds the time it was sent"""
         parcel = {
             "id": Parcel._id,
+            "title": self.title,
+            "description": self.description,
             "destination": self.destination,
             "pickup_location": self.pickup_location,
             "weight": str(self.weight) + 'grams',

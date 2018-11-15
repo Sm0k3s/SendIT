@@ -8,6 +8,16 @@ class ParcelOrder(Resource):
     Resource for Parcel orders /api/v1/parcels
     """
     parser = reqparse.RequestParser()
+    parser.add_argument('title',
+                        type=str,
+                        required=True,
+                        help="You must provide title."
+                       )
+    parser.add_argument('description',
+                        type=str,
+                        required=False,
+                        help="You description of parcel."
+                       )
     parser.add_argument('destination',
                         type=str,
                         required=True,
@@ -32,6 +42,8 @@ class ParcelOrder(Resource):
     def post(self):
         """Creates a parcel order"""
         data = ParcelOrder.parser.parse_args()
+        title = data['title']
+        description = data['description']
         destination = data['destination'].strip()
         pickup = data['pickup_location'].strip()
         weight = data['weight']
@@ -39,7 +51,7 @@ class ParcelOrder(Resource):
         if destination == "" or pickup == "" or weight == "":
             return {'message': 'one or more fields empty'}
 
-        Parcel(destination, pickup, weight).create_parcel()
+        Parcel(title,destination, pickup, weight, description).create_parcel()
         i = Parcel.search_by_key_value('id', len(Parcel.database))
         return {'message': 'parcel created successfully', 'data': i}, 201
 
