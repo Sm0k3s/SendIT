@@ -4,6 +4,7 @@ from werkzeug.security import check_password_hash
 import re
 from ..models.user import User
 from ..models.parcel import Parcel
+from app.api.utils.validators import Validators
 
 
 class SignUp(Resource):
@@ -11,7 +12,6 @@ class SignUp(Resource):
     Resource for signing up /api/v1/auth/signup
 
     """
-    #re.match(r"[\w\d]{3,}@[\w]+\.[\w]{2,}", 'one@ff.sd')
     parser = reqparse.RequestParser()
     parser.add_argument('username',
                         type=str,
@@ -34,7 +34,8 @@ class SignUp(Resource):
         data = SignUp.parser.parse_args()
         if data['username'].strip() == '' or data['password'].strip() == '' or data['email'].strip() == '':
             return {'message': 'one or more fields empty'}
-
+        if not Validators.check_email(data['email']):
+            return {'message':'please enter a valid email'}, 401
         User(data['username'], data['email'], data['password']).create_user()
         i = {'username': data['username'], 'email': data['email']}
         return {'message': 'account successfully registered', 'data': i}, 201
