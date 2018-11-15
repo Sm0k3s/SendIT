@@ -37,6 +37,8 @@ class SignUp(Resource):
 
         if not Validators.check_email(data['email']):
             return {'message':'please enter a valid email'}, 401
+        if User.search_by_key_value('username', data['username']):
+            return {'message':'username already exists try another'}, 401
         if User.search_by_key_value('email', data['email']):
             return {'message':'email already exists try another'}, 401
         User(data['username'], data['email'], data['password']).create_user()
