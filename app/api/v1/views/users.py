@@ -34,7 +34,8 @@ class SignUp(Resource):
         data = SignUp.parser.parse_args()
         if data['username'].strip() == '' or data['password'].strip() == '' or data['email'].strip() == '':
             return {'message': 'one or more fields empty'}
-
+        if not Validators.check_username(data['username']):
+            return {'message':'please enter a valid username'}, 401
         if not Validators.check_email(data['email']):
             return {'message':'please enter a valid email'}, 401
         if User.search_by_key_value('username', data['username']):
