@@ -9,7 +9,7 @@ class TestUser(BaseTest):
 
     def test_user_signup(self):
         """Tests that a user can sign up"""
-        resp = self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
+        resp = self.client.post('/api/v1/auth/signup', data=json.dumps(self.unique_user),
                                 content_type='application/json')
         self.assertEqual(resp.status_code, 201)
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],

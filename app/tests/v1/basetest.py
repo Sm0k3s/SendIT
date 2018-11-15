@@ -20,6 +20,11 @@ class BaseTest(unittest.TestCase):
             "email": "groot@gmail.com",
             "password": "iamgroot"
         }
+        self.unique_user = {
+            "username": "laca",
+            "email": "laca@gmail.com",
+            "password": "iamgroot"
+        }
         self.user = {
             "username": "groot",
             "password": "iamgroot"

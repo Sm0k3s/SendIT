@@ -58,14 +58,12 @@ class TestParcel(BaseTest):
         """
         self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
                                 content_type='application/json')
-        self.client.post('/api/v1/auth/signup', data=json.dumps(self.new_user),
-                                content_type='application/json')
 
         self.client.post('/api/v1/parcels', data=json.dumps(self.order),
                          content_type='application/json')
-        resp = self.client.get('/api/v1/users/2/parcels')
+        resp = self.client.get('/api/v1/users/1/parcels')
         self.assertEqual(resp.status_code, 200)
-        self.assertIn('all parcels created by user 2',
+        self.assertIn('all parcels created by user 1',
                       json.loads(resp.get_data(as_text=True)))
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
                          'success')
