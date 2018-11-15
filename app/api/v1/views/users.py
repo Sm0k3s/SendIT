@@ -34,8 +34,11 @@ class SignUp(Resource):
         data = SignUp.parser.parse_args()
         if data['username'].strip() == '' or data['password'].strip() == '' or data['email'].strip() == '':
             return {'message': 'one or more fields empty'}
+
         if not Validators.check_email(data['email']):
             return {'message':'please enter a valid email'}, 401
+        if User.search_by_key_value('email', data['email']):
+            return {'message':'email already exists try another'}, 401
         User(data['username'], data['email'], data['password']).create_user()
         i = {'username': data['username'], 'email': data['email']}
         return {'message': 'account successfully registered', 'data': i}, 201
