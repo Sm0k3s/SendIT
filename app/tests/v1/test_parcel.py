@@ -48,7 +48,7 @@ class TestParcel(BaseTest):
         resp = self.client.get('/api/v1/parcels/1')
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
-                         'success')
+                         'successfully fetched')
         self.assertIn('data',json.loads(resp.get_data(as_text=True)))
 
     def test_get_parcels_by_a_specific_user(self):

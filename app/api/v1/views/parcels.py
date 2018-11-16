@@ -37,12 +37,12 @@ class ParcelOrder(Resource):
     def get(self):
         """Gets all parcels from the database"""
         res = Parcel.get_all()
-        return {'message': 'success', 'parcels': res}, 200
+        return {'message': 'successfully fetched', 'parcels': res}, 200
 
     def post(self):
         """Creates a parcel order"""
         data = ParcelOrder.parser.parse_args()
-        title = data['title']
+        title = data['title'].strip()
         description = data['description']
         destination = data['destination'].strip()
         pickup = data['pickup_location'].strip()
@@ -84,7 +84,7 @@ class FindParcel(Resource):
         """Gets a single order that matches the id provided"""
         if parcel_id in Parcel.database.keys():
             i = Parcel.search_by_key_value('id', parcel_id)[0]
-            return {'message': 'success', 'data': i}, 200
+            return {'message': 'successfully fetched', 'data': i}, 200
         return {'message': 'parcel not found'}, 404
 
     def put(self,parcel_id):
