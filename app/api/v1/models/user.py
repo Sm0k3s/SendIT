@@ -38,7 +38,7 @@ class User():
 
     @classmethod
     def search_by_key_value(cls, key, value):
-        """searches the dict database"""
+        """searches the users dict database"""
         res = [i for i in cls.database.values() if i[key] == value]
         return res
 
