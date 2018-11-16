@@ -9,9 +9,9 @@ class Database():
     Database model
     """
     @classmethod
-    def initialize(cls):
+    def initialize(cls, uri):
         """Method to start the connection with the database"""
-        cls.conn = psycopg2.connect(os.getenv("DATABASEURI"))
+        cls.conn = psycopg2.connect(uri)
         cls.cur = cls.conn.cursor(cursor_factory=RealDictCursor)
 
     @classmethod
@@ -39,6 +39,10 @@ class Database():
                 sender_id INTEGER REFERENCES users(id)
                 )""")
         cls.conn.commit()
-    def drop_all():
+
+    @classmethod
+    def drop_all(cls):
         """drops all tables"""
-        pass
+        cls.cur.execute("""DROP TABLE IF EXISTS users CASCADE;
+                        DROP TABLE IF EXISTS parcels CASCADE;""")
+        cls.conn.commit()

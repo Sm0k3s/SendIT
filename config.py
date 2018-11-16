@@ -5,7 +5,7 @@ class Config():
     DEBUG = False
     TESTING = False
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
-    # DATABASE_URI = os.getenv("DATABASEURI")
+    DATABASE_URI = os.getenv("DATABASEURI")
 
 class Development(Config):
     """Development config class"""
@@ -21,6 +21,7 @@ class Testing(Config):
     """Testing config class"""
     TESTING = True
     DEBUG = True
+    DATABASE_URI = os.getenv("TEST_DATABASEURI")
 
 config = {
     "TESTING": Testing,
