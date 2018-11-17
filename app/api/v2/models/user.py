@@ -1,9 +1,9 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash
-from database import Database
+from database import Database as db
 
-db = Database()
-db.initialize("dbname='sendit' user='postgres' password='smokes' host='localhost'")
+# db.initialize("dbname='sendit' user='postgres' password='github' host='localhost'")
+
 
 class UserModel():
     """User model that will persist data to the db"""
@@ -19,12 +19,25 @@ class UserModel():
         self.joined_on = joined_on
 
     def save_to_db(self):
+        """Saves a user into the database"""
         query = """INSERT INTO users(firstname,surname,username,email,password,
         role,joined_on) VALUES(%s,%s,%s,%s,%s,%s,%s) RETURNING id
         """
         tup = (self.firstname, self.surname, self.username, self.email, self.password,
              self.role, self.joined_on)
         db.insert(query, tup)
+
+    @classmethod
+    def find_by_username(cls,username):
+        """Finds a user by their username"""
+        query = "SELECT * FROM users WHERE username=%s"
+        return db.find_one(query, (username,))
+
+    @classmethod
+    def find_by_id(cls,id):
+        """Finds a user by their username"""
+        query = "SELECT * FROM users WHERE id=%s"
+        return db.find_one(query, (id,))
 
 class AdminModel(UserModel):
 
@@ -39,3 +52,6 @@ class AdminModel(UserModel):
 # admin.save_to_db()
 # admin.save_to_db()
 # admin.save_to_db()
+# print(UserModel.find_by_username('kilau'))
+# print(UserModel.find_by_id(8))
+# UserModel.find_by_username('kilau')

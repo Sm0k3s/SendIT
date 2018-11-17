@@ -49,13 +49,13 @@ class Database():
         cls.conn.commit()
 
     @classmethod
-    def find_one(cls, query):
-        cls.cur.execute(query)
+    def find_one(cls, query, tup):
+        cls.cur.execute(query, tup)
         return cls.cur.fetchone()
 
     @classmethod
-    def find_many(cls, query):
-        cls.cur.execute(query)
+    def find_many(cls, query, tup):
+        cls.cur.execute(query, tup)
         return cls.cur.fetchall()
 
     @classmethod
