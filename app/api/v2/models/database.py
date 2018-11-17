@@ -16,7 +16,7 @@ class Database():
 
     @classmethod
     def create_all(cls):
-        """creates all tables"""
+        """Creates all tables"""
         cls.cur.execute("""CREATE TABLE IF NOT EXISTS users(
             id serial PRIMARY KEY,
             firstname VARCHAR(255),
@@ -50,19 +50,19 @@ class Database():
 
     @classmethod
     def find_one(cls, query, tup):
-        """returns the first result in a query"""
+        """Returns the first result in a query"""
         cls.cur.execute(query, tup)
         return cls.cur.fetchone()
 
     @classmethod
     def find_many(cls, query, tup):
-        """returns all the results in a query"""
+        """Returns all the results in a query"""
         cls.cur.execute(query, tup)
         return cls.cur.fetchall()
 
     @classmethod
     def drop_all(cls):
-        """drops all tables"""
+        """Drops all tables"""
         cls.cur.execute("""DROP TABLE IF EXISTS users CASCADE;
                         DROP TABLE IF EXISTS parcels CASCADE;""")
         cls.conn.commit()

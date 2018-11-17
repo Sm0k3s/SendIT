@@ -1,6 +1,6 @@
 """module for parcel model that persists data into the db"""
 from datetime import datetime
-from database import Database as db
+from .database import Database as db
 
 db.initialize("dbname='sendit' user='postgres' password='smokes' host='localhost'")
 
@@ -22,6 +22,7 @@ class ParcelModel():
         self.sent_on = sent_on
 
     def save_to_db(self):
+        """saves a parcel to the database"""
         query = """INSERT INTO parcels(title, description,destination,
                    pickup_location,weight,sender_id, price,
                    current_location, status, sent_on)
@@ -45,16 +46,18 @@ class ParcelModel():
 
     @classmethod
     def cancel_a_parcel(cls, id):
+        """cancels the parcel with the id provided"""
         query = """UPDATE parcels SET status = %s WHERE id = %s"""
         tup =('canceled' , id)
         db.insert(query, tup)
 
     @classmethod
     def change_current_location(cls, location, id):
+        """takes location provided and replaces the current one"""
         query = """UPDATE parcels SET status = %s WHERE id = %s"""
-        tup =('canceled' , id)
+        tup =(location , id)
         db.insert(query, tup)
 
-p=ParcelModel('cakes','tasty cakes', 'eldoret','nairobi',9,1)
-p.save_to_db()
-ParcelModel.cancel_a_parcel(1)
+# p=ParcelModel('cakes','tasty cakes', 'eldoret','nairobi',9,1)
+# p.save_to_db()
+# ParcelModel.cancel_a_parcel(1)

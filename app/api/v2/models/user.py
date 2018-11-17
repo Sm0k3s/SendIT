@@ -1,6 +1,6 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash
-from database import Database as db
+from .database import Database as db
 
 # db.initialize("dbname='sendit' user='postgres' password='github' host='localhost'")
 
