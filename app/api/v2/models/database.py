@@ -23,7 +23,9 @@ class Database():
             surname VARCHAR(255),
             username VARCHAR(255),
             email VARCHAR(255),
-            password VARCHAR(255)
+            password VARCHAR(255),
+            role VARCHAR(255),
+            joined_on TIMESTAMP DEFAULT NOW()
             );
             CREATE TABLE IF NOT EXISTS parcels(
                 id serial PRIMARY KEY,
@@ -41,18 +43,18 @@ class Database():
         cls.conn.commit()
 
     @classmethod
-    def insert(query):
+    def insert(cls, query, tup):
         """Will be used with insert statements"""
-        cls.cur.execute(query)
+        cls.cur.execute(query, tup)
         cls.conn.commit()
 
     @classmethod
-    def find_one(query):
+    def find_one(cls, query):
         cls.cur.execute(query)
         return cls.cur.fetchone()
 
     @classmethod
-    def find_many(query):
+    def find_many(cls, query):
         cls.cur.execute(query)
         return cls.cur.fetchall()
 

@@ -9,7 +9,7 @@ def create_app(config_name="DEVELOPMENT"):
     app.config.from_object(config[config_name])
     Database.initialize(app.config['DATABASE_URI'])
     Database.create_all()
-    Database.drop_all()
+    # Database.drop_all()
 
     from app.api.v1 import v1
     app.register_blueprint(v1)
