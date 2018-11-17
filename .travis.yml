@@ -1,9 +1,17 @@
 language: python
 python:
   - 3.6
+services:
+    - postgresql
 install:
   - pip install -r requirements.txt
   - pip install coveralls
+before_script:
+    - psql -c 'create database sendit_test;' -U postgres
+    - psql -c "create user smokes with password 'smokey';" -U postgres
+env:
+  - DATABASEURI="dbname='sendit_test' user='smokes' password='smokey' host='localhost'"
+  - JWT_SECRET_KEY="shh_shhuutt_uup"
 script:
   - coverage run -m unittest discover && coverage report
 
