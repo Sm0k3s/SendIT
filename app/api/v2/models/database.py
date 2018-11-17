@@ -41,6 +41,22 @@ class Database():
         cls.conn.commit()
 
     @classmethod
+    def insert(query):
+        """Will be used with insert statements"""
+        cls.cur.execute(query)
+        cls.conn.commit()
+
+    @classmethod
+    def find_one(query):
+        cls.cur.execute(query)
+        return cls.cur.fetchone()
+
+    @classmethod
+    def find_many(query):
+        cls.cur.execute(query)
+        return cls.cur.fetchall()
+
+    @classmethod
     def drop_all(cls):
         """drops all tables"""
         cls.cur.execute("""DROP TABLE IF EXISTS users CASCADE;
