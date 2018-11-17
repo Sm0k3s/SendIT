@@ -8,7 +8,6 @@ install:
   - pip install coveralls
 before_script:
     - psql -c 'create database sendit_test;' -U postgres
-    - psql -c "create user smokes with password 'smokey';" -U postgres
 script:
   - coverage run -m unittest discover && coverage report
 
