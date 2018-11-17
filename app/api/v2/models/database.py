@@ -9,7 +9,7 @@ class Database():
     Database model
     """
     @classmethod
-    def initialize(cls, uri):
+    def initialize(cls, uri=os.getenv("DATABASEURI")):
         """Method to start the connection with the database"""
         cls.conn = psycopg2.connect(uri)
         cls.cur = cls.conn.cursor(cursor_factory=RealDictCursor)
