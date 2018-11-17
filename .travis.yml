@@ -7,8 +7,8 @@ install:
   - pip install -r requirements.txt
   - pip install coveralls
 before_script:
+    - source ./.travis.sh
     - psql -c 'create database sendit_test;' -U postgres
-    - cp app/api/v2/models/database.yml.travis app/api/v2/models/database.yml
 script:
   - coverage run -m unittest discover && coverage report
 
