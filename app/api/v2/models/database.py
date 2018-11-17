@@ -9,7 +9,7 @@ class Database():
     Database model
     """
     @classmethod
-    def initialize(cls, uri="dbname='sendit_test' user='postgres' password='postgres' host='localhost'"):
+    def initialize(cls, uri):
         """Method to start the connection with the database"""
         cls.conn = psycopg2.connect(uri)
         cls.cur = cls.conn.cursor(cursor_factory=RealDictCursor)
@@ -50,11 +50,13 @@ class Database():
 
     @classmethod
     def find_one(cls, query, tup):
+        """returns the first result in a query"""
         cls.cur.execute(query, tup)
         return cls.cur.fetchone()
 
     @classmethod
     def find_many(cls, query, tup):
+        """returns all the results in a query"""
         cls.cur.execute(query, tup)
         return cls.cur.fetchall()
 
