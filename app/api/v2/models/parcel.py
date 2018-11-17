@@ -2,20 +2,22 @@
 from datetime import datetime
 from database import Database as db
 
+db.initialize("dbname='sendit' user='postgres' password='smokes' host='localhost'")
+
 class ParcelModel():
     """model to persist parcel information into the database"""
 
     def __init__(self, title, description, destination, pickup_location,weight,
-                 sender_id,price="", current_location="",
-                 status='in transit', sent_on=datetime.now().__str__()):
-        self.title = title
-        self.description = description
+                 sender_id, status='in transit',
+                 sent_on=datetime.now().__str__()):
+        self.title = title.title()
+        self.description = description.title()
         self.destination = destination
         self.pickup_location = pickup_location
         self.weight = weight
         self.sender_id = sender_id
-        self.price = price
-        self.current_location = current_location
+        self.price = int(self.weight * 2)
+        self.current_location = self.pickup_location
         self.status = status
         self.sent_on = sent_on
 
@@ -40,3 +42,19 @@ class ParcelModel():
         """Finds a parcel by its senders id"""
         query = "SELECT * FROM parcels WHERE id=%s"
         return db.find_one(query, (sender_id,))
+
+    @classmethod
+    def cancel_a_parcel(cls, id):
+        query = """UPDATE parcels SET status = %s WHERE id = %s"""
+        tup =('canceled' , id)
+        db.insert(query, tup)
+
+    @classmethod
+    def change_current_location(cls, location, id):
+        query = """UPDATE parcels SET status = %s WHERE id = %s"""
+        tup =('canceled' , id)
+        db.insert(query, tup)
+
+p=ParcelModel('cakes','tasty cakes', 'eldoret','nairobi',9,1)
+p.save_to_db()
+ParcelModel.cancel_a_parcel(1)

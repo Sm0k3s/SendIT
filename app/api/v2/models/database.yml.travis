@@ -1,0 +1,5 @@
+postgresql:
+  adapter: postgresql
+  database: sendit_test
+  username: postgres
+  password: postgres
