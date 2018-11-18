@@ -56,7 +56,3 @@ class ParcelModel():
         query = """UPDATE parcels SET status = %s WHERE id = %s"""
         tup =(location , id)
         db.insert(query, tup)
-
-# p=ParcelModel('cakes','tasty cakes', 'eldoret','nairobi',9,1)
-# p.save_to_db()
-# ParcelModel.cancel_a_parcel(1)

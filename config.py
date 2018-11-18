@@ -6,6 +6,7 @@ class Config():
     TESTING = False
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
     DATABASE_URI = os.getenv("DATABASEURI")
+    PROPAGATE_EXCEPTIONS = True
 
 class Development(Config):
     """Development config class"""
