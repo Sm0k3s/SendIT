@@ -2,8 +2,6 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash
 from .database import Database as db
 
-# db.initialize("dbname='sendit' user='postgres' password='smokes' host='localhost'")
-
 
 class UserModel():
     """User model that will persist data to the db"""
@@ -45,15 +43,3 @@ class AdminModel(UserModel):
                  role="", joined_on=datetime.now().__str__()):
         super().__init__(firstname, surname, username, email, password, role, joined_on)
         self.role = "admin"
-#test
-# user = UserModel('Kenny', 'Matiba', 'kilau', 'ken@ken.kmn', ';lk;l')
-# admin = AdminModel('Kenny', 'Matiba', 'kilau', 'ken@ken.kmn', ';lk;l')
-# user.save_to_db()
-# admin.save_to_db()
-# admin.save_to_db()
-# admin.save_to_db()
-# print(UserModel.find_by_username('kilau'))
-# print(UserModel.find_by_id(8))
-# if UserModel.find_by_username('sm0k3s'):
-#     print(UserModel.find_by_username('sm0k3s'))
-#     print('user exists')

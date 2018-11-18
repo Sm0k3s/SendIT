@@ -1,6 +1,8 @@
 """Resources for the user views"""
 from flask_restful import Resource, reqparse
 from werkzeug.security import check_password_hash
+from flask_jwt_extended import (create_access_token, jwt_required,get_jwt_identity)
+
 from ..models.user import UserModel
 from ..models.parcel import ParcelModel
 from app.api.utils.validators import Validators
@@ -82,6 +84,7 @@ class UserLogin(Resource):
         if not user:
             return {'message':'User does not exist please sign up'}, 401
         if check_password_hash(user['password'],data['password']):
+            access_token = create_access_token(identity=user['id'])
             i = {'username':user['username'], 'email':user['email']}
-            return {'message':'success', 'user':i}
-        # return {'message':'successfully signed in'}
+            return {'message':'login successful', 'token':access_token}
+        return {'message':'invalid credentials'}, 401

@@ -38,6 +38,10 @@ class BaseTest(unittest.TestCase):
             "email": "    ",
             "password": "iamgroot"
         }
+        self.invalid_ = {
+            "username": "     ",
+            "password": "iamgroot"
+        }
 
     def tearDown(self):
         """Drops all tables when the test client is done"""

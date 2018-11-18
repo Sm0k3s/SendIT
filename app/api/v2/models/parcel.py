@@ -2,7 +2,6 @@
 from datetime import datetime
 from .database import Database as db
 
-# db.initialize("dbname='sendit' user='postgres' password='smokes' host='localhost'")
 
 class ParcelModel():
     """model to persist parcel information into the database"""
