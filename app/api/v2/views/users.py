@@ -61,3 +61,27 @@ class UserSign(Resource):
         UserModel(data['firstname'],data['surname'],data['username'],
                       data['email'],data['password']).save_to_db()
         return {'message':'user {} created'.format(data['username'])}, 201
+
+
+class UserLogin(Resource):
+    """Resource for user login api/v2/auth/login"""
+    parser = reqparse.RequestParser()
+    parser.add_argument('username',
+                        type=str,
+                        required=True,
+                        help="You must provide a username."
+                       )
+    parser.add_argument('password',
+                        type=str,
+                        required=True,
+                        help="You must provide a password."
+                       )
+    def post(self):
+        data = UserLogin.parser.parse_args()
+        user = UserModel.find_by_username(data['username'])
+        if not user:
+            return {'message':'User does not exist please sign up'}, 401
+        if check_password_hash(user['password'],data['password']):
+            i = {'username':user['username'], 'email':user['email']}
+            return {'message':'success', 'user':i}
+        # return {'message':'successfully signed in'}
