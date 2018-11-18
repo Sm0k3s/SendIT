@@ -2,7 +2,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash
 from .database import Database as db
 
-# db.initialize("dbname='sendit' user='postgres' password='github' host='localhost'")
+db.initialize("dbname='sendit' user='postgres' password='smokes' host='localhost'")
 
 
 class UserModel():
@@ -54,4 +54,6 @@ class AdminModel(UserModel):
 # admin.save_to_db()
 # print(UserModel.find_by_username('kilau'))
 # print(UserModel.find_by_id(8))
-# UserModel.find_by_username('kilau')
+# if UserModel.find_by_username('sm0k3s'):
+#     print(UserModel.find_by_username('sm0k3s'))
+#     print('user exists')
