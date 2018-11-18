@@ -40,8 +40,7 @@ class BaseTest(unittest.TestCase):
         }
 
     def tearDown(self):
-        """Destroys the test client when done"""
-        # self.app.testing = False
+        """Drops all tables when the test client is done"""
         db.drop_all()
 
 if __name__ == '__main__':

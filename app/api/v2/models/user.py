@@ -2,7 +2,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash
 from .database import Database as db
 
-db.initialize("dbname='sendit' user='postgres' password='smokes' host='localhost'")
+# db.initialize("dbname='sendit' user='postgres' password='smokes' host='localhost'")
 
 
 class UserModel():
