@@ -50,3 +50,16 @@ class NewParcel(Resource):
                               get_jwt_identity())
         deliver.save_to_db()
         return {'message':'parcel created successfully'}, 201
+
+
+class CancelParcel(Resource):
+    """Resource for cancelling a parcel api/v2/parcels/<parcel id>/cancel"""
+    @jwt_required
+    def put(self, parcel_id):
+        parcel = ParcelModel.find_by_id(parcel_id)
+        if not parcel:
+            return {'message':'parcel not found'}, 404
+        if parcel['sender_id'] == get_jwt_identity():
+            ParcelModel.cancel_a_parcel(parcel_id)
+            return {'message':'parcel {} canceled'.format(parcel_id)}, 200
+        return {'message':'cannot cancel parcel thats not yours'}, 401
