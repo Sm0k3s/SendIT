@@ -1,6 +1,5 @@
 """Module to test user routes"""
 import json
-#from app.api.v1.models.user import User
 from .basetest import BaseTest
 
 

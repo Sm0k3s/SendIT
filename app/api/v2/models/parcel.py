@@ -39,9 +39,9 @@ class ParcelModel():
 
     @classmethod
     def find_by_sender_id(cls,sender_id):
-        """Finds a parcel by its senders id"""
-        query = "SELECT * FROM parcels WHERE id=%s"
-        return db.find_one(query, (sender_id,))
+        """Finds all parcels by its senders id"""
+        query = "SELECT * FROM parcels WHERE sender_id=%s"
+        return db.find_many(query, (sender_id,))
 
     @classmethod
     def cancel_a_parcel(cls, id):

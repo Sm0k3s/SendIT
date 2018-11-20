@@ -25,7 +25,7 @@ class Database():
             email VARCHAR(255),
             password VARCHAR(255),
             role VARCHAR(255),
-            joined_on TIMESTAMP DEFAULT NOW()
+            joined_on VARCHAR(255)
             );
             CREATE TABLE IF NOT EXISTS parcels(
                 id serial PRIMARY KEY,
@@ -36,7 +36,7 @@ class Database():
                 weight INTEGER,
                 price VARCHAR(255),
                 status VARCHAR(255) DEFAULT 'in-transit',
-                sent_on TIMESTAMP DEFAULT NOW(),
+                sent_on VARCHAR(255),
                 current_location VARCHAR(255),
                 sender_id INTEGER REFERENCES users(id)
                 )""")
