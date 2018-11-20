@@ -88,3 +88,14 @@ class UserLogin(Resource):
             i = {'username':user['username'], 'email':user['email']}
             return {'message':'login successful', 'token':access_token}
         return {'message':'invalid credentials'}, 401
+
+class UsersParcels(Resource):
+    """Resource to get all parcels by a specific user api/v2/users/<user id>/parcels"""
+    @jwt_required
+    def get(self, sender_id):
+        if sender_id != get_jwt_identity():
+            return {'message':'cannot view other users parcels'}, 401
+        parcels = ParcelModel.find_by_sender_id(sender_id)
+        if not parcels:
+            return {'message':'parcels not found'}, 404
+        return {'message':'parcels by {}'.format(sender_id),'all parcels': parcels}

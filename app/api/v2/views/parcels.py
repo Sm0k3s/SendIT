@@ -42,6 +42,9 @@ class NewParcel(Resource):
         destination = data['destination'].strip()
         pickup = data['pickup_location'].strip()
         weight = data['weight']
+        user = UserModel.find_by_id(get_jwt_identity())
+        if not user:
+            return {'message':'cannot create parcel without registering first'}
         if not title.isalpha():
             return {'message':'invalid title'}
         if len(destination) < 3 or len(pickup) < 3 or weight < 0 or len(title) < 3:
