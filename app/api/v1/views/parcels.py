@@ -47,8 +47,9 @@ class ParcelOrder(Resource):
         destination = data['destination'].strip()
         pickup = data['pickup_location'].strip()
         weight = data['weight']
-
-        if destination == "" or pickup == "" or weight == "":
+        if not title.isalpha():
+            return {'message':'invalid title'}
+        if destination == "" or pickup == "" or weight == "" or title == '':
             return {'message': 'one or more fields empty'}
 
         Parcel(title,destination, pickup, weight, description).create_parcel()

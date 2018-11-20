@@ -8,7 +8,7 @@ class Validators():
             return True
 
     def check_username(username):
-        if re.match(r"[A-Za-z]?[\w]?[-_]?[A-Za-z]{3,}", username):
+        if re.match(r"[^\W][A-Za-z]?[\w]?[-_]?[A-Za-z0-9]{3,}", username):
             return True
 
     def check_password(password):
