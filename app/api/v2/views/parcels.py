@@ -54,7 +54,7 @@ class NewParcel(Resource):
         if len(title) < 3:
             return {'message':'the title must be atleast 3 characters long'}, 400
         if destination.isdigit():
-            return {'message':'the destination should not digits only'},400
+            return {'message':'the destination should not be digits only'},400
         if not weight.isdigit():
             return {'message':'weight must be a digit'}, 400
         if int(weight) < 1:

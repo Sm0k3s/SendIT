@@ -44,3 +44,22 @@ class TestParcel(BaseTest):
                                 headers=self.get_token())
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
                          'parcel does not exist')
+
+    def test_user_can_edit_parcel(self):
+        invalid_dest = {'new destination':'4532'}
+        new_dest = {'new destination':'mombasa'}
+        self.client.post('/api/v2/parcels', data=json.dumps(self.order),
+                         content_type='application/json',
+                         headers=self.get_token())
+        resp = self.client.put('/api/v2/parcels/1/destination',
+                               data=json.dumps(new_dest), content_type='application/json',
+                               headers=self.get_token())
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
+                         'destination for parcel 1 updated')
+        res = self.client.put('/api/v2/parcels/1/destination',
+                               data=json.dumps(invalid_dest), content_type='application/json',
+                               headers=self.get_token())
+        self.assertEqual(res.status_code, 400)
+        self.assertEqual(json.loads(res.get_data(as_text=True))['message'],
+                         'destination should not be digits only')
