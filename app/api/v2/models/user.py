@@ -1,5 +1,7 @@
 from datetime import datetime
+from functools import wraps
 from werkzeug.security import generate_password_hash
+from flask_jwt_extended import get_jwt_identity
 from .database import Database as db
 
 
@@ -43,3 +45,14 @@ class AdminModel(UserModel):
                  role="", joined_on=datetime.now().__str__()):
         super().__init__(firstname, surname, username, email, password, role, joined_on)
         self.role = "admin"
+
+
+def admin(f):
+    @wraps(f)
+    def wrapper(*args, **kwds):
+        user = UserModel.find_by_id(get_jwt_identity())
+        if user['role'] != 'admin':
+            return {'message':'user not an admin please upgrade'}, 401
+        # print 'Calling decorated function'
+        return f(*args, **kwds)
+    return wrapper

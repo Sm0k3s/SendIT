@@ -3,7 +3,7 @@ from flask_restful import Resource, reqparse
 from werkzeug.security import check_password_hash
 from flask_jwt_extended import (create_access_token, jwt_required,get_jwt_identity)
 
-from ..models.user import UserModel
+from ..models.user import UserModel, admin
 from ..models.parcel import ParcelModel
 from app.api.utils.validators import Validators
 
@@ -36,6 +36,7 @@ class UserSign(Resource):
                         required=True,
                         help="You must provide a password."
                        )
+
     def post(self):
         data = UserSign.parser.parse_args()
         fname = data['firstname'].strip()
@@ -108,3 +109,10 @@ class UsersParcels(Resource):
         if not parcels:
             return {'message':'parcel does not exist'}, 404
         return {'message':'parcels by {}'.format(sender_id),'all parcels': parcels}
+
+
+class AdminStatus(Resource):
+    """Resource for admin change status of a parcel /parcels/<parcel_id>/status"""
+    @jwt_required
+    @admin
+    def put(self):
