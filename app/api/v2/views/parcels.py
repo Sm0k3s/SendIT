@@ -78,7 +78,7 @@ class CancelParcel(Resource):
         return {'message':'cannot cancel parcel thats not yours'}, 401
 
 
-class EditParcel():
+class EditParcel(Resource):
     """Resource for editting a parcel's destination /api/v2/parcels/<parcel id>/destination"""
     parser = reqparse.RequestParser()
     parser.add_argument('new destination',
@@ -90,12 +90,13 @@ class EditParcel():
     @jwt_required
     def put(self, parcel_id):
         data = EditParcel.parser.parse_args()
-        if data['new destination'].strip < 3:
+        if len(data['new destination'].strip()) < 3:
             return {'message':'destination should be atleast 3 characters long'}, 400
-        if not data['new destination'].isdigit():
+        if data['new destination'].isdigit():
             return {'message':'destination should not be digits only'}, 400
+
         parcel = ParcelModel.find_by_id(parcel_id)
         if parcel['sender_id'] != get_jwt_identity():
             return {'message': 'cannot edit a parcel that you did not create'}, 401
         ParcelModel.edit_a_parcel(data['new destination'], parcel_id)
-        return {'message':'parcel destination updated', 'parcel':parcel}
+        return {'message':'destination for parcel {} updated'.format(parcel_id)}, 200
