@@ -112,3 +112,22 @@ class AdminStatus(Resource):
             return {'message':'parcel does not exist'}, 404
         ParcelModel.change_status(parcel_id)
         return {'message':'updated status for parcel {}'.format(parcel_id)}, 200
+
+class AdminLocation(Resource):
+    """Resource for admin to change current location api/v2/parcels/parcel_id/presentLocation"""
+    parser = reqparse.RequestParser()
+    parser.add_argument('location',
+                        type=str,
+                        required=True,
+                        help="You must provide the current location."
+                       )
+    @jwt_required
+    @admin
+    def put(self, parcel_id):
+        data = AdminLocation.parser.parse_args()
+        if len(data['location'].strip()) < 3:
+            return {'message':'location should be atleast 3 characters long'}, 400
+        if data['location'].isdigit():
+            return {'message':'current location should not be digits only'}, 400
+        ParcelModel.change_current_location(data['location'], parcel_id)
+        return {'message':'parcel\'s current location updated'}, 200
