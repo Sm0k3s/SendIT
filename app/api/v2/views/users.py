@@ -80,13 +80,16 @@ class UserLogin(Resource):
                        )
     def post(self):
         data = UserLogin.parser.parse_args()
+        if len(data['username'].strip()) < 3:
+            return {'message':'please enter a name with atleast 3 characters'}
         user = UserModel.find_by_username(data['username'])
         if not user:
-            return {'message':'User does not exist please sign up'}, 401
+            return {'Message':'a user with name \'{}\' does not exist'.format(data['username']),
+                    'info':'please use the name you provided when signin up'}, 401
         if check_password_hash(user['password'],data['password']):
             access_token = create_access_token(identity=user['id'])
             i = {'username':user['username'], 'email':user['email']}
-            return {'message':'login successful', 'token':access_token}
+            return {'Message':'login successful', 'token':access_token}
         return {'message':'invalid credentials'}, 401
 
 class UsersParcels(Resource):
@@ -97,5 +100,5 @@ class UsersParcels(Resource):
             return {'message':'cannot view other users parcels'}, 401
         parcels = ParcelModel.find_by_sender_id(sender_id)
         if not parcels:
-            return {'message':'parcels not found'}, 404
+            return {'message':'parcel does not exist'}, 404
         return {'message':'parcels by {}'.format(sender_id),'all parcels': parcels}

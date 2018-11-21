@@ -51,6 +51,13 @@ class ParcelModel():
         db.insert(query, tup)
 
     @classmethod
+    def edit_a_parcel(cls, destination, id):
+        """edits a parcel's destination with the id provided"""
+        query = """UPDATE parcels SET destination = %s WHERE id = %s"""
+        tup =(destination , id)
+        db.insert(query, tup)
+
+    @classmethod
     def change_current_location(cls, location, id):
         """takes location provided and replaces the current one"""
         query = """UPDATE parcels SET status = %s WHERE id = %s"""
