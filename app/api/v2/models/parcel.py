@@ -21,6 +21,7 @@ class ParcelModel():
         self.sent_on = sent_on
 
     def save_to_db(self):
+        self.sent_on = datetime.now().__str__()
         """saves a parcel to the database"""
         query = """INSERT INTO parcels(title, description,destination,
                    pickup_location,weight,sender_id, price,

@@ -12,7 +12,7 @@ class TestUser(BaseTest):
                                 content_type='application/json')
         self.assertEqual(resp.status_code, 201)
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
-                                    'user groot created')
+                                    'user groot successfully signed up')
 
     def test_user_login(self):
         """Tests if a user can signin"""
@@ -23,7 +23,7 @@ class TestUser(BaseTest):
         resp = self.client.post('/api/v2/auth/login', data=json.dumps(self.user),
                                 content_type='application/json')
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
+        self.assertEqual(json.loads(resp.get_data(as_text=True))['Message'],
                                     'login successful')
         self.assertIn('token',json.loads(resp.get_data(as_text=True)))
 
@@ -34,4 +34,4 @@ class TestUser(BaseTest):
                                 content_type='application/json')
         self.assertEqual(resp.status_code, 401)
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
-                                    'User does not exist please sign up')
+                                    'please enter a name with atleast 3 characters')

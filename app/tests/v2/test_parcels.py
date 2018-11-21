@@ -43,4 +43,4 @@ class TestParcel(BaseTest):
         resp = self.client.put('/api/v2/parcels/1/cancel', content_type='application/json',
                                 headers=self.get_token())
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
-                         'parcel not found')
+                         'parcel does not exist')
