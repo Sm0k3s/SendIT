@@ -53,6 +53,5 @@ def admin(f):
         user = UserModel.find_by_id(get_jwt_identity())
         if user['role'] != 'admin':
             return {'message':'user not an admin please upgrade'}, 401
-        # print 'Calling decorated function'
         return f(*args, **kwds)
     return wrapper
