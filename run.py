@@ -10,6 +10,7 @@ def create_app(config_name="DEVELOPMENT"):
     app.config.from_object(config[config_name])
     Database.initialize(app.config['DATABASE_URI'])
     jwt = JWTManager(app)
+    Database.drop_all()
     Database.create_all()
 
     from app.api.v1 import v1
@@ -19,12 +20,6 @@ def create_app(config_name="DEVELOPMENT"):
     return app
 
 app = create_app()
-
-
-@app.route('/')
-def home():
-    """The home route"""
-    return 'Moin moin'
 
 if __name__ == '__main__':
     app.run()
