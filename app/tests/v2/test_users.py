@@ -35,3 +35,13 @@ class TestUser(BaseTest):
         self.assertEqual(resp.status_code, 401)
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
                                     'please enter a name with atleast 3 characters')
+
+    def test_user_cannot_change_status_of_parcel(self):
+        self.client.post('/api/v2/parcels', data=json.dumps(self.order),
+                                content_type='application/json',
+                                headers=self.get_token())
+        resp = self.client.put('/api/v2/parcels/1/status', content_type='application/json',
+                                 headers=self.get_token())
+        self.assertEqual(resp.status_code, 401)
+        self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
+                                    'user not an admin please upgrade')

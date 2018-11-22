@@ -36,6 +36,7 @@ class UserSign(Resource):
                         required=True,
                         help="You must provide a password."
                        )
+
     def post(self):
         data = UserSign.parser.parse_args()
         fname = data['firstname'].strip()
@@ -94,7 +95,6 @@ class UserLogin(Resource):
                     'info':'please use the name you provided when signin up'}, 401
         if check_password_hash(user['password'],data['password']):
             access_token = create_access_token(identity=user['id'])
-            i = {'username':user['username'], 'email':user['email']}
             return {'Message':'login successful', 'token':access_token}
         return {'message':'invalid credentials'}, 401
 

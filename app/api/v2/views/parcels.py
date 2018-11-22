@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import (create_access_token, jwt_required,get_jwt_identity)
-from ..models.user import UserModel
+from ..models.user import UserModel, admin
 from ..models.parcel import ParcelModel
 from app.api.utils.validators import Validators
 
@@ -100,3 +100,15 @@ class EditParcel(Resource):
             return {'message': 'cannot edit a parcel that you did not create'}, 401
         ParcelModel.edit_a_parcel(data['new destination'], parcel_id)
         return {'message':'destination for parcel {} updated'.format(parcel_id)}, 200
+
+
+class AdminStatus(Resource):
+    """Resource for admin change status of a parcel /parcels/<parcel_id>/status"""
+    @jwt_required
+    @admin
+    def put(self, parcel_id):
+        parcel = ParcelModel.find_by_id(parcel_id)
+        if not parcel:
+            return {'message':'parcel does not exist'}, 404
+        ParcelModel.change_status(parcel_id)
+        return {'message':'updated status for parcel {}'.format(parcel_id)}, 200
