@@ -3,7 +3,7 @@ from flask_restful import Resource, reqparse
 from werkzeug.security import check_password_hash
 from flask_jwt_extended import (create_access_token, jwt_required,get_jwt_identity)
 
-from ..models.user import UserModel
+from ..models.user import UserModel, AdminModel
 from ..models.parcel import ParcelModel
 from app.api.utils.validators import Validators
 
@@ -42,7 +42,7 @@ class UserSign(Resource):
         fname = data['firstname'].strip()
         sname = data['surname'].strip()
         uname = data['username'].strip()
-        
+
         if not fname.isalpha() or not sname.isalpha():
             return {'message': 'firstname and surname should consists of alphabets only'}, 400
 
@@ -61,6 +61,64 @@ class UserSign(Resource):
         if UserModel.find_by_username(data['username']):
             return {'message':'username {} already exists '.format(data['username'])}, 400
         UserModel(data['firstname'],data['surname'],data['username'],
+                      data['email'],data['password']).save_to_db()
+        return {'message':'user {} successfully signed up'.format(data['username'])}, 201
+
+
+
+class AdminSign(Resource):
+    """Resource for signin up users api/v2/admin/signup"""
+    parser = reqparse.RequestParser()
+    parser.add_argument('firstname',
+                        type=str,
+                        required=True,
+                        help="You must provide a firstname."
+                       )
+    parser.add_argument('surname',
+                        type=str,
+                        required=False,
+                        help="You must provide a surname."
+                       )
+    parser.add_argument('username',
+                        type=str,
+                        required=True,
+                        help="You must provide a username."
+                       )
+    parser.add_argument('email',
+                        type=str,
+                        required=True,
+                        help="You must provide an email."
+                       )
+    parser.add_argument('password',
+                        type=str,
+                        required=True,
+                        help="You must provide a password."
+                       )
+
+    def post(self):
+        data = AdminSign.parser.parse_args()
+        fname = data['firstname'].strip()
+        sname = data['surname'].strip()
+        uname = data['username'].strip()
+
+        if not fname.isalpha() or not sname.isalpha():
+            return {'message': 'firstname and surname should consists of alphabets only'}, 400
+
+        if len(fname) < 3 or len(sname) < 3 or len(uname) < 3:
+            return{'message':'firstname,surname and username atleast be 3 characters long'},400
+        if not Validators.check_username(data['username']):
+            return {'message': 'please enter a valid username'}, 400
+
+        if not Validators.check_email(data['email']):
+            return {'Message': 'please enter a valid email', 'info':
+            'the email should have a single character before and after the \'@\' and \'.\' signs'}, 400
+
+        if not len(data['password'].strip()) >= 6:
+            return {'message': 'password must be atleast six characters long'}, 400
+
+        if UserModel.find_by_username(data['username']):
+            return {'message':'username {} already exists '.format(data['username'])}, 400
+        AdminModel(data['firstname'],data['surname'],data['username'],
                       data['email'],data['password']).save_to_db()
         return {'message':'user {} successfully signed up'.format(data['username'])}, 201
 
