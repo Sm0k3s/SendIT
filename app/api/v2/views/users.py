@@ -44,7 +44,7 @@ class UserSign(Resource):
         uname = data['username'].strip()
 
         if not fname.isalpha() or not sname.isalpha():
-            return {'message': 'firstname and surname should consists of alphabets only'}, 400
+            return {'message': 'firstname and surname should consist of alphabets only'}, 400
 
         if len(fname) < 3 or len(sname) < 3 or len(uname) < 3:
             return{'message':'firstname,surname and username atleast be 3 characters long'},400
@@ -116,11 +116,11 @@ class AdminSign(Resource):
         if not len(data['password'].strip()) >= 6:
             return {'message': 'password must be atleast six characters long'}, 400
 
-        if UserModel.find_by_username(data['username']):
+        if UserModel.find_by_username(data['username'].lower()):
             return {'message':'username {} already exists '.format(data['username'])}, 400
 
-        AdminModel(data['firstname'],data['surname'],data['username'],
-                      data['email'],data['password']).save_to_db()
+        AdminModel(data['firstname'].lower(),data['surname'].lower(),data['username'].lower(),
+                      data['email'].lower(),data['password']).save_to_db()
         return {'message':'user {} successfully signed up'.format(data['username'])}, 201
 
 
@@ -141,10 +141,12 @@ class UserLogin(Resource):
         data = UserLogin.parser.parse_args()
         if len(data['username'].strip()) < 3:
             return {'message':'please enter a name with atleast 3 characters'}, 401
+
         user = UserModel.find_by_username(data['username'])
         if not user:
             return {'Message':'a user with name \'{}\' does not exist'.format(data['username']),
                     'info':'please use the name you provided when signin up'}, 401
+
         if check_password_hash(user['password'],data['password']):
             access_token = create_access_token(identity=user['id'])
             return {'Message':'login successful', 'token':access_token}
@@ -154,9 +156,9 @@ class UsersParcels(Resource):
     """Resource to get all parcels by a specific user api/v2/users/<user id>/parcels"""
     @jwt_required
     def get(self, sender_id):
-        if sender_id != get_jwt_identity():
-            return {'message':'cannot view other users parcels'}, 401
         parcels = ParcelModel.find_by_sender_id(sender_id)
         if not parcels:
             return {'message':'parcel does not exist'}, 404
+        if sender_id != get_jwt_identity():
+            return {'message':'cannot view other users parcels'}, 401
         return {'message':'parcels by {}'.format(sender_id),'all parcels': parcels}

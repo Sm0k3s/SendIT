@@ -37,12 +37,13 @@ class NewParcel(Resource):
     def post(self):
         """Creates a parcel order"""
         data = NewParcel.parser.parse_args()
+        user_id = get_jwt_identity()
         title = data['title'].strip()
         description = data['description'].strip()
         destination = data['destination'].strip()
         pickup = data['pickup_location'].strip()
         weight = data['weight']
-        user = UserModel.find_by_id(get_jwt_identity())
+        user = UserModel.find_by_id(user_id)
         if not user:
             return {'message':'cannot create parcel without registering first'}, 401
         if not title.isalpha():
@@ -57,7 +58,7 @@ class NewParcel(Resource):
         if int(weight) < 1:
             return {'message':'the minimum weight is 1'}, 400
         deliver = ParcelModel(title,description, destination,pickup,weight,
-                              get_jwt_identity())
+                              user_id)
         deliver.save_to_db()
         return {'message':'parcel created successfully'}, 201
 
