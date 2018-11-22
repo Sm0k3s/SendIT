@@ -21,6 +21,7 @@ class ParcelModel():
         self.sent_on = sent_on
 
     def save_to_db(self):
+        self.sent_on = datetime.now().__str__()
         """saves a parcel to the database"""
         query = """INSERT INTO parcels(title, description,destination,
                    pickup_location,weight,sender_id, price,
@@ -48,6 +49,13 @@ class ParcelModel():
         """cancels the parcel with the id provided"""
         query = """UPDATE parcels SET status = %s WHERE id = %s"""
         tup =('canceled' , id)
+        db.insert(query, tup)
+
+    @classmethod
+    def edit_a_parcel(cls, destination, id):
+        """edits a parcel's destination with the id provided"""
+        query = """UPDATE parcels SET destination = %s WHERE id = %s"""
+        tup =(destination , id)
         db.insert(query, tup)
 
     @classmethod
