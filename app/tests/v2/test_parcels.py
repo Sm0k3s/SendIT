@@ -63,3 +63,11 @@ class TestParcel(BaseTest):
         self.assertEqual(res.status_code, 400)
         self.assertEqual(json.loads(res.get_data(as_text=True))['message'],
                          'destination should not be digits only')
+    def test_get_all_parcels_admin(self):
+        self.client.post('/api/v2/parcels', data=json.dumps(self.order),
+                         content_type='application/json',
+                         headers=self.get_token())
+        resp = self.client.get('/api/v2/parcels', data=json.dumps(self.order),
+                         content_type='application/json',
+                         headers=self.get_admin_token())
+        self.assertEqual(resp.status_code, 200)

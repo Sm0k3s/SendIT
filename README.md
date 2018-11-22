@@ -27,7 +27,7 @@
 ```bash
 $ git clone https://github.com/sm0k3s/SendIT.git
 ```
-* Cd into it
+* Cd into the sendIT directory
 * Make a virtual environment and activate it
 
 ```bash
@@ -56,15 +56,15 @@ Test the available endpoints
 ## Available endpoints
 |  Endpoint  | Description  |
 |  ---  | --- |
-| `POST api/v1/auth/signup` | Creates a new user |
-| `POST api/v1/auth/login`  | Users can log in to their accounts |
+| `POST api/v2/auth/signup` | Creates a new user |
+| `POST api/v2/auth/login`  | Users can log in to their accounts |
 | `DELETE api/v1/users/logout` | Users can logout |
-| `POST api/v1/parcels` | Creates a parcel delivery order |
-| `GET api/v1/parcels` | Gets all parcel delivery orders |
-| `PUT api/v1/parcels/<parcel_id>/cancel` | User can cancel a parcel order |
-| `GET api/v1/parcels/<parcel_id>` | Gets a specific parcel by its id |
-| `GET api/v1/users/<user_id>/parcels` | Gets parcel orders by a specific user |
-| `PUT api/v1/parcels/<parcel_id>` | Edits the destination of a parcel order |
+| `POST api/v2/parcels` | Creates a parcel delivery order |
+| `GET api/v2/parcels` | Gets all parcel delivery orders by the admin |
+| `PUT api/v2/parcels/<parcel_id>/cancel` | User can cancel a parcel order |
+| `GET api/v2/parcels/<parcel_id>` | Gets a specific parcel by its id |
+| `GET api/v2/users/<user_id>/parcels` | Gets parcel orders by a specific user |
+| `PUT api/v2/parcels/<parcel_id>/destination` | Edits the destination of a parcel order |
 
 ## Running tests
 * Cd into the directory where the app is located at and

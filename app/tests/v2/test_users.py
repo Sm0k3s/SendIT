@@ -71,3 +71,5 @@ class TestUser(BaseTest):
         self.assertEqual(resp.status_code, 201)
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
                                     'user groot successfully signed up')
+
+    def test_

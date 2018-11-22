@@ -118,6 +118,7 @@ class AdminSign(Resource):
 
         if UserModel.find_by_username(data['username']):
             return {'message':'username {} already exists '.format(data['username'])}, 400
+
         AdminModel(data['firstname'],data['surname'],data['username'],
                       data['email'],data['password']).save_to_db()
         return {'message':'user {} successfully signed up'.format(data['username'])}, 201
