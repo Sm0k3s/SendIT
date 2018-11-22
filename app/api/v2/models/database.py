@@ -56,8 +56,14 @@ class Database():
 
     @classmethod
     def find_many(cls, query, tup):
-        """Returns all the results in a query"""
+        """Returns all the results in a query with conditions"""
         cls.cur.execute(query, tup)
+        return cls.cur.fetchall()
+
+    @classmethod
+    def find_all(cls, query):
+        """Returns all the results in a query"""
+        cls.cur.execute(query)
         return cls.cur.fetchall()
 
     @classmethod

@@ -71,3 +71,8 @@ class ParcelModel():
         query = """UPDATE parcels SET status = %s WHERE id = %s"""
         tup =('delivered' , id)
         db.insert(query, tup)
+
+    @classmethod
+    def get_all_parcels(cls):
+        query = "SELECT * FROM parcels"
+        return db.find_all(query)

@@ -63,7 +63,7 @@ class TestUser(BaseTest):
                                  headers=self.get_admin_token())
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
-                                    'parcel\'s current location updated')
+                                    'parcel updated successfully')
 
     def test_admin_can_be_registered(self):
         resp = self.client.post('/api/v2/admin/signup', data=json.dumps(self.new_user),

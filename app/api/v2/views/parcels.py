@@ -38,7 +38,7 @@ class NewParcel(Resource):
         """Creates a parcel order"""
         data = NewParcel.parser.parse_args()
         title = data['title'].strip()
-        description = data['description']
+        description = data['description'].strip()
         destination = data['destination'].strip()
         pickup = data['pickup_location'].strip()
         weight = data['weight']
@@ -47,12 +47,9 @@ class NewParcel(Resource):
             return {'message':'cannot create parcel without registering first'}, 401
         if not title.isalpha():
             return {'message':'title should only have alphabets'}, 400
-        if len(destination) < 3:
-            return {'message':'the destination must be atleast 3 characters long'}, 400
-        if len(pickup) < 3:
-            return {'message':'the pickup_location must be atleast 3 characters long'}, 400
-        if len(title) < 3:
-            return {'message':'the title must be atleast 3 characters long'}, 400
+        if len(destination) < 3 or len(pickup) < 3 or len(title) < 3:
+            return {'message':'the title, destination and pickup_location must be\
+                    atleast 3 characters long'}, 400
         if destination.isdigit():
             return {'message':'the destination should not be digits only'},400
         if not weight.isdigit():
@@ -99,10 +96,12 @@ class EditParcel(Resource):
         if parcel['sender_id'] != get_jwt_identity():
             return {'message': 'cannot edit a parcel that you did not create'}, 401
         ParcelModel.edit_a_parcel(data['new destination'], parcel_id)
-        return {'message':'destination for parcel {} updated'.format(parcel_id)}, 200
+        parcel = ParcelModel.find_by_id(parcel_id)
+        return {'message':'destination for parcel {} updated'.format(parcel_id),
+                'parcel': parcel}, 200
 
 
-class AdminStatus(Resource):
+class UpdateStatus(Resource):
     """Resource for admin change status of a parcel /parcels/<parcel_id>/status"""
     @jwt_required
     @admin
@@ -113,7 +112,7 @@ class AdminStatus(Resource):
         ParcelModel.change_status(parcel_id)
         return {'message':'updated status for parcel {}'.format(parcel_id)}, 200
 
-class AdminLocation(Resource):
+class UpdateCurrentLocation(Resource):
     """Resource for admin to change current location api/v2/parcels/parcel_id/presentLocation"""
     parser = reqparse.RequestParser()
     parser.add_argument('location',
@@ -124,10 +123,22 @@ class AdminLocation(Resource):
     @jwt_required
     @admin
     def put(self, parcel_id):
-        data = AdminLocation.parser.parse_args()
+        data = UpdateCurrentLocation.parser.parse_args()
         if len(data['location'].strip()) < 3:
             return {'message':'location should be atleast 3 characters long'}, 400
         if data['location'].isdigit():
             return {'message':'current location should not be digits only'}, 400
         ParcelModel.change_current_location(data['location'], parcel_id)
-        return {'message':'parcel\'s current location updated'}, 200
+        parcel = ParcelModel.find_by_id(parcel_id)
+        return {'message':'parcel updated successfully', 'parcel': parcel}, 200
+
+
+class AllParcels(Resource):
+    """Resource to get all parcels in the app /api/v2/parcels"""
+    @jwt_required
+    @admin
+    def get(self):
+        parcels = ParcelModel.get_all_parcels()
+        if parcels is None:
+            return {'message':'no parcels yet, check later'}, 404
+        return {'all parcels':parcels}, 200
