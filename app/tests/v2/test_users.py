@@ -45,3 +45,29 @@ class TestUser(BaseTest):
         self.assertEqual(resp.status_code, 401)
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
                                     'user not an admin please upgrade')
+
+    def test_admin_can_change_status_of_parcel(self):
+        self.client.post('/api/v2/parcels', data=json.dumps(self.order),
+                                content_type='application/json',
+                                headers=self.get_token())
+        resp = self.client.put('/api/v2/parcels/1/status', content_type='application/json',
+                                 headers=self.get_admin_token())
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
+                                    'updated status for parcel 1')
+
+    def test_admin_can_change_present_location(self):
+        local = {'location':'current locale'}
+        resp = self.client.put('/api/v2/parcels/1/presentLocation', data=json.dumps(local),
+                                content_type='application/json',
+                                 headers=self.get_admin_token())
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
+                                    'parcel\'s current location updated')
+
+    def test_admin_can_be_registered(self):
+        resp = self.client.post('/api/v2/admin/signup', data=json.dumps(self.new_user),
+                                content_type='application/json')
+        self.assertEqual(resp.status_code, 201)
+        self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
+                                    'user groot successfully signed up')
