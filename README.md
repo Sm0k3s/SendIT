@@ -58,7 +58,7 @@ Test the available endpoints
 |  ---  | --- |
 | `POST api/v2/auth/signup` | Creates a new user |
 | `POST api/v2/auth/login`  | Users can log in to their accounts |
-| `DELETE api/v1/users/logout` | Users can logout |
+| `POST api/v2/admin/signup` | Signups an admin |
 | `POST api/v2/parcels` | Creates a parcel delivery order |
 | `GET api/v2/parcels` | Gets all parcel delivery orders by the admin |
 | `PUT api/v2/parcels/<parcel_id>/cancel` | User can cancel a parcel order |

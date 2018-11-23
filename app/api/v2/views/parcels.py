@@ -113,7 +113,7 @@ class UpdateStatus(Resource):
         if not parcel:
             return {'message':'parcel does not exist'}, 404
         ParcelModel.change_status(parcel_id)
-
+        parcel = ParcelModel.find_by_id(parcel_id)
         requests.post(
         "https://api.mailgun.net/v3/sandbox9d6ce81024d2412abe40d65207c1ca07.mailgun.org/messages",
         auth=("api", os.getenv('MAIL')),
@@ -122,7 +122,7 @@ class UpdateStatus(Resource):
               "to": "<obaga4@gmail.com>",
               "subject": "Parcel delivered",
               "text": "Hello our valued customer, we would like to inform you that your parcel with id {} has been delivered".format(parcel_id)})
-        return {'message':'updated status for parcel {}'.format(parcel_id)}, 200
+        return {'message':'updated status', 'parcel {}'.format(parcel_id): parcel}, 200
 
 class UpdateCurrentLocation(Resource):
     """Resource for admin to change current location api/v2/parcels/parcel_id/presentLocation"""

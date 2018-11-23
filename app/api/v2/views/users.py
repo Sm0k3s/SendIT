@@ -58,10 +58,10 @@ class UserSign(Resource):
         if not len(data['password'].strip()) >= 6:
             return {'message': 'password must be atleast six characters long'}, 400
 
-        if UserModel.find_by_username(data['username']):
+        if UserModel.find_by_username(data['username'].lower()):
             return {'message':'username {} already exists '.format(data['username'])}, 400
-        UserModel(data['firstname'],data['surname'],data['username'],
-                      data['email'],data['password']).save_to_db()
+        UserModel(data['firstname'].lower(),data['surname'].lower(),data['username'].lower(),
+                      data['email'].lower(),data['password'].lower()).save_to_db()
         return {'message':'user {} successfully signed up'.format(data['username'])}, 201
 
 
