@@ -42,19 +42,12 @@ class UserSign(Resource):
         fname = data['firstname'].strip()
         sname = data['surname'].strip()
         uname = data['username'].strip()
-        if data['username'].strip() == '' or data['password'].strip() == '' or data['email'].strip() == '':
-            return {'message': 'one or more fields empty'},400
-        if not fname.isalpha():
-            return {'message': 'firstname should be alphabets only'}, 400
-        if len(fname) < 3:
-            return{'message':'firstname should be atleast 3 characters long'},400
-        if not sname.isalpha():
-            return {'message': 'please enter a name that consists of alphabets only'}, 400
-        if len(sname) < 3:
-            return{'message':'surname should be atleast 3 characters long'},400
-        if len(uname) < 3:
-            return {'message':'username should atleast be 3 characters long'}, 400
+        
+        if not fname.isalpha() or not sname.isalpha():
+            return {'message': 'firstname and surname should consists of alphabets only'}, 400
 
+        if len(fname) < 3 or len(sname) < 3 or len(uname) < 3:
+            return{'message':'firstname,surname and username atleast be 3 characters long'},400
         if not Validators.check_username(data['username']):
             return {'message': 'please enter a valid username'}, 400
 
