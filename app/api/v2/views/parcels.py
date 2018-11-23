@@ -1,3 +1,5 @@
+import requests
+import os
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import (create_access_token, jwt_required,get_jwt_identity)
 from ..models.user import UserModel, admin
@@ -37,22 +39,20 @@ class NewParcel(Resource):
     def post(self):
         """Creates a parcel order"""
         data = NewParcel.parser.parse_args()
+        user_id = get_jwt_identity()
         title = data['title'].strip()
-        description = data['description']
+        description = data['description'].strip()
         destination = data['destination'].strip()
         pickup = data['pickup_location'].strip()
         weight = data['weight']
-        user = UserModel.find_by_id(get_jwt_identity())
+        user = UserModel.find_by_id(user_id)
         if not user:
             return {'message':'cannot create parcel without registering first'}, 401
         if not title.isalpha():
             return {'message':'title should only have alphabets'}, 400
-        if len(destination) < 3:
-            return {'message':'the destination must be atleast 3 characters long'}, 400
-        if len(pickup) < 3:
-            return {'message':'the pickup_location must be atleast 3 characters long'}, 400
-        if len(title) < 3:
-            return {'message':'the title must be atleast 3 characters long'}, 400
+        if len(destination) < 3 or len(pickup) < 3 or len(title) < 3:
+            return {'message':'the title, destination and pickup_location must be\
+                    atleast 3 characters long'}, 400
         if destination.isdigit():
             return {'message':'the destination should not be digits only'},400
         if not weight.isdigit():
@@ -60,7 +60,7 @@ class NewParcel(Resource):
         if int(weight) < 1:
             return {'message':'the minimum weight is 1'}, 400
         deliver = ParcelModel(title,description, destination,pickup,weight,
-                              get_jwt_identity())
+                              user_id)
         deliver.save_to_db()
         return {'message':'parcel created successfully'}, 201
 
@@ -99,10 +99,12 @@ class EditParcel(Resource):
         if parcel['sender_id'] != get_jwt_identity():
             return {'message': 'cannot edit a parcel that you did not create'}, 401
         ParcelModel.edit_a_parcel(data['new destination'], parcel_id)
-        return {'message':'destination for parcel {} updated'.format(parcel_id)}, 200
+        parcel = ParcelModel.find_by_id(parcel_id)
+        return {'message':'destination for parcel {} updated'.format(parcel_id),
+                'parcel': parcel}, 200
 
 
-class AdminStatus(Resource):
+class UpdateStatus(Resource):
     """Resource for admin change status of a parcel /parcels/<parcel_id>/status"""
     @jwt_required
     @admin
@@ -111,4 +113,54 @@ class AdminStatus(Resource):
         if not parcel:
             return {'message':'parcel does not exist'}, 404
         ParcelModel.change_status(parcel_id)
+
+        requests.post(
+        "https://api.mailgun.net/v3/sandbox9d6ce81024d2412abe40d65207c1ca07.mailgun.org/messages",
+        auth=("api", os.getenv('MAIL')),
+        data={"from": "SendIT Parcel Delivery Service\
+                <postmaster@sandbox9d6ce81024d2412abe40d65207c1ca07.mailgun.org>",
+              "to": "<obaga4@gmail.com>",
+              "subject": "Parcel delivered",
+              "text": "Hello our valued customer, we would like to inform you that your parcel with id {} has been delivered".format(parcel_id)})
         return {'message':'updated status for parcel {}'.format(parcel_id)}, 200
+
+class UpdateCurrentLocation(Resource):
+    """Resource for admin to change current location api/v2/parcels/parcel_id/presentLocation"""
+    parser = reqparse.RequestParser()
+    parser.add_argument('location',
+                        type=str,
+                        required=True,
+                        help="You must provide the current location."
+                       )
+    @jwt_required
+    @admin
+    def put(self, parcel_id):
+        data = UpdateCurrentLocation.parser.parse_args()
+        if len(data['location'].strip()) < 3:
+            return {'message':'location should be atleast 3 characters long'}, 400
+        if data['location'].isdigit():
+            return {'message':'current location should not be digits only'}, 400
+        ParcelModel.change_current_location(data['location'], parcel_id)
+
+        requests.post(
+        "https://api.mailgun.net/v3/sandbox9d6ce81024d2412abe40d65207c1ca07.mailgun.org/messages",
+        auth=("api", os.getenv('MAIL')),
+        data={"from": "SendIT Parcel Delivery Service\
+                <postmaster@sandbox9d6ce81024d2412abe40d65207c1ca07.mailgun.org>",
+              "to": "<obaga4@gmail.com>",
+              "subject": "Current location updated",
+              "text": "Hello our esteemed customer, we would like to inform you that your parcel's current location is at {} ".format(data['location'])})
+
+        parcel = ParcelModel.find_by_id(parcel_id)
+        return {'message':'parcel updated successfully', 'parcel': parcel}, 200
+
+
+class AllParcels(Resource):
+    """Resource to get all parcels in the app /api/v2/parcels"""
+    @jwt_required
+    @admin
+    def get(self):
+        parcels = ParcelModel.get_all_parcels()
+        if parcels is None:
+            return {'message':'no parcels yet, check later'}, 404
+        return {'all parcels':parcels}, 200

@@ -15,7 +15,7 @@ class ParcelModel():
         self.pickup_location = pickup_location
         self.weight = weight
         self.sender_id = sender_id
-        self.price = int(self.weight * 2)
+        self.price = int(self.weight) * 2
         self.current_location = self.pickup_location
         self.status = status
         self.sent_on = sent_on
@@ -27,10 +27,10 @@ class ParcelModel():
                    pickup_location,weight,sender_id, price,
                    current_location, status, sent_on)
                    VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING id"""
-        tup = (self.title, self.description, self.destination, self.pickup_location,
+        tuple = (self.title, self.description, self.destination, self.pickup_location,
                self.weight, self.sender_id, self.price, self.current_location,
                self.status, self.sent_on)
-        db.insert(query, tup)
+        db.insert(query, tuple)
 
     @classmethod
     def find_by_id(cls,id):
@@ -48,26 +48,31 @@ class ParcelModel():
     def cancel_a_parcel(cls, id):
         """cancels the parcel with the id provided"""
         query = """UPDATE parcels SET status = %s WHERE id = %s"""
-        tup =('canceled' , id)
-        db.insert(query, tup)
+        tuple =('canceled' , id)
+        db.insert(query, tuple)
 
     @classmethod
     def edit_a_parcel(cls, destination, id):
         """edits a parcel's destination with the id provided"""
         query = """UPDATE parcels SET destination = %s WHERE id = %s"""
-        tup =(destination , id)
-        db.insert(query, tup)
+        tuple =(destination , id)
+        db.insert(query, tuple)
 
     @classmethod
     def change_current_location(cls, location, id):
         """takes location provided and replaces the current one"""
         query = """UPDATE parcels SET current_location = %s WHERE id = %s"""
-        tup =(location , id)
-        db.insert(query, tup)
+        tuple =(location , id)
+        db.insert(query, tuple)
 
     @classmethod
     def change_status(cls, id):
         """changes the status of parcel to delivered"""
         query = """UPDATE parcels SET status = %s WHERE id = %s"""
-        tup =('delivered' , id)
-        db.insert(query, tup)
+        tuple =('delivered' , id)
+        db.insert(query, tuple)
+
+    @classmethod
+    def get_all_parcels(cls):
+        query = "SELECT * FROM parcels"
+        return db.find_all(query)
