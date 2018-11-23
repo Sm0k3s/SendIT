@@ -164,3 +164,14 @@ class AllParcels(Resource):
         if parcels is None:
             return {'message':'no parcels yet, check later'}, 404
         return {'all parcels':parcels}, 200
+
+
+class SingleParcel(Resource):
+    """Resource to get a single parcel by id api/v2/parcels/parcel_id"""
+    @jwt_required
+    @admin
+    def get(self, parcel_id):
+        parcel = ParcelModel.find_by_id(parcel_id)
+        if parcel is None:
+            return {'message': 'parcel does not exist'}, 404
+        return {'parcel': parcel}
