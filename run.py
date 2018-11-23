@@ -24,7 +24,7 @@ def create_app(config_name="DEVELOPMENT"):
         }), 400
 
     @jwt.expired_token_loader
-    def expired_(e):
+    def expired_():
         return jsonify({
             "Message": "expired token, login to get a new one."
         }), 401

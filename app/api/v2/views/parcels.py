@@ -1,3 +1,5 @@
+import requests
+import os
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import (create_access_token, jwt_required,get_jwt_identity)
 from ..models.user import UserModel, admin
@@ -111,6 +113,15 @@ class UpdateStatus(Resource):
         if not parcel:
             return {'message':'parcel does not exist'}, 404
         ParcelModel.change_status(parcel_id)
+
+        requests.post(
+        "https://api.mailgun.net/v3/sandbox9d6ce81024d2412abe40d65207c1ca07.mailgun.org/messages",
+        auth=("api", os.getenv('MAIL')),
+        data={"from": "SendIT Parcel Delivery Service\
+                <postmaster@sandbox9d6ce81024d2412abe40d65207c1ca07.mailgun.org>",
+              "to": "<obaga4@gmail.com>",
+              "subject": "Parcel delivered",
+              "text": "Hello our valued customer, we would like to inform you that your parcel with id {} has been delivered".format(parcel_id)})
         return {'message':'updated status for parcel {}'.format(parcel_id)}, 200
 
 class UpdateCurrentLocation(Resource):
@@ -130,6 +141,16 @@ class UpdateCurrentLocation(Resource):
         if data['location'].isdigit():
             return {'message':'current location should not be digits only'}, 400
         ParcelModel.change_current_location(data['location'], parcel_id)
+
+        requests.post(
+        "https://api.mailgun.net/v3/sandbox9d6ce81024d2412abe40d65207c1ca07.mailgun.org/messages",
+        auth=("api", os.getenv('MAIL')),
+        data={"from": "SendIT Parcel Delivery Service\
+                <postmaster@sandbox9d6ce81024d2412abe40d65207c1ca07.mailgun.org>",
+              "to": "<obaga4@gmail.com>",
+              "subject": "Current location updated",
+              "text": "Hello our esteemed customer, we would like to inform you that your parcel's current location is at {} ".format(data['location'])})
+
         parcel = ParcelModel.find_by_id(parcel_id)
         return {'message':'parcel updated successfully', 'parcel': parcel}, 200
 
