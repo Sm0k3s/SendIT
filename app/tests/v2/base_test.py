@@ -58,6 +58,15 @@ class BaseTest(unittest.TestCase):
         auth_header = {'Authorization': 'Bearer {}'.format(access_token)}
         return auth_header
 
+    def get_admin_token(self):
+        self.client.post('/api/v2/admin/signup', data=json.dumps(self.new_user),
+                                content_type='application/json')
+        resp = self.client.post('/api/v2/auth/login', data=json.dumps(self.user),
+                                content_type='application/json')
+        access_token = json.loads(resp.get_data(as_text=True))['token']
+        auth_header = {'Authorization': 'Bearer {}'.format(access_token)}
+        return auth_header
+
     def tearDown(self):
         """Drops all tables when the test client is done"""
         db.drop_all()
