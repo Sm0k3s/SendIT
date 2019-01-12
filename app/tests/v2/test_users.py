@@ -54,10 +54,10 @@ class TestUser(BaseTest):
                                  headers=self.get_admin_token())
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(json.loads(resp.get_data(as_text=True))['message'],
-                                    'updated status for parcel 1')
+                                    'updated status')
 
     def test_admin_can_change_present_location(self):
-        local = {'location':'current locale'}
+        local = {'location':'currentlocale'}
         resp = self.client.put('/api/v2/parcels/1/presentLocation', data=json.dumps(local),
                                 content_type='application/json',
                                  headers=self.get_admin_token())

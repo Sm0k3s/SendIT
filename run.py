@@ -32,7 +32,7 @@ def create_app(config_name="DEVELOPMENT"):
     @jwt.invalid_token_loader
     def invalid_token(e):
         return jsonify({
-            "Message": "invalid token provided"
+            "Message": "invalid token provided, please login to get a fresh one"
         }), 401
     return app
 

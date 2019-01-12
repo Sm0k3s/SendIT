@@ -5,3 +5,4 @@ venv
 __init__.sublime-workspace
 .coverage
 .env
+.vscode

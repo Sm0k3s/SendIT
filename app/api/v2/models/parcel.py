@@ -32,47 +32,47 @@ class ParcelModel():
                self.status, self.sent_on)
         db.insert(query, tuple)
 
-    @classmethod
-    def find_by_id(cls,id):
+    @staticmethod
+    def find_by_id(id):
         """Finds a parcel by its id"""
         query = "SELECT * FROM parcels WHERE id=%s"
         return db.find_one(query, (id,))
 
-    @classmethod
-    def find_by_sender_id(cls,sender_id):
+    @staticmethod
+    def find_by_sender_id(sender_id):
         """Finds all parcels by its senders id"""
         query = "SELECT * FROM parcels WHERE sender_id=%s"
         return db.find_many(query, (sender_id,))
 
-    @classmethod
-    def cancel_a_parcel(cls, id):
+    @staticmethod
+    def cancel_a_parcel(id):
         """cancels the parcel with the id provided"""
         query = """UPDATE parcels SET status = %s WHERE id = %s"""
         tuple =('canceled' , id)
         db.insert(query, tuple)
 
-    @classmethod
-    def edit_a_parcel(cls, destination, id):
+    @staticmethod
+    def edit_a_parcel(destination, id):
         """edits a parcel's destination with the id provided"""
         query = """UPDATE parcels SET destination = %s WHERE id = %s"""
         tuple =(destination , id)
         db.insert(query, tuple)
 
-    @classmethod
-    def change_current_location(cls, location, id):
+    @staticmethod
+    def change_current_location(location, id):
         """takes location provided and replaces the current one"""
         query = """UPDATE parcels SET current_location = %s WHERE id = %s"""
         tuple =(location , id)
         db.insert(query, tuple)
 
-    @classmethod
-    def change_status(cls, id):
+    @staticmethod
+    def change_status(id):
         """changes the status of parcel to delivered"""
         query = """UPDATE parcels SET status = %s WHERE id = %s"""
         tuple =('delivered' , id)
         db.insert(query, tuple)
 
-    @classmethod
-    def get_all_parcels(cls):
+    @staticmethod
+    def get_all_parcels():
         query = "SELECT * FROM parcels"
         return db.find_all(query)

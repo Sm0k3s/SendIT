@@ -53,8 +53,8 @@ class NewParcel(Resource):
         if len(destination) < 3 or len(pickup) < 3 or len(title) < 3:
             return {'message':'the title, destination and pickup_location must be\
                     atleast 3 characters long'}, 400
-        if destination.isdigit():
-            return {'message':'the destination should not be digits only'},400
+        if not destination.isalpha():
+            return {'message':'the destination should be alphabets only'},400
         if not weight.isdigit():
             return {'message':'weight must be a digit'}, 400
         if int(weight) < 1:
@@ -74,7 +74,9 @@ class CancelParcel(Resource):
             return {'message':'parcel does not exist'}, 404
         if parcel['sender_id'] == get_jwt_identity():
             ParcelModel.cancel_a_parcel(parcel_id)
-            return {'message':'parcel {} canceled'.format(parcel_id)}, 200
+            parcel = ParcelModel.find_by_id(parcel_id)
+            return {'message':'parcel {} canceled'.format(parcel_id),
+                    'updated parcel': parcel}, 200
         return {'message':'cannot cancel parcel thats not yours'}, 401
 
 
@@ -92,16 +94,18 @@ class EditParcel(Resource):
         data = EditParcel.parser.parse_args()
         if len(data['new destination'].strip()) < 3:
             return {'message':'destination should be atleast 3 characters long'}, 400
-        if data['new destination'].isdigit():
-            return {'message':'destination should not be digits only'}, 400
+        if not data['new destination'].isalpha():
+            return {'message':'destination should be alphabets only'}, 400
 
         parcel = ParcelModel.find_by_id(parcel_id)
+        if parcel is None:
+            return {'message': 'parcel does not exist'}, 404
         if parcel['sender_id'] != get_jwt_identity():
-            return {'message': 'cannot edit a parcel that you did not create'}, 401
+            return {'message': 'cannot edit a parcel thats not yours'}, 401
         ParcelModel.edit_a_parcel(data['new destination'], parcel_id)
-        parcel = ParcelModel.find_by_id(parcel_id)
+        parc = ParcelModel.find_by_id(parcel_id)
         return {'message':'destination for parcel {} updated'.format(parcel_id),
-                'parcel': parcel}, 200
+                'parcel': parc}, 200
 
 
 class UpdateStatus(Resource):
@@ -136,10 +140,11 @@ class UpdateCurrentLocation(Resource):
     @admin
     def put(self, parcel_id):
         data = UpdateCurrentLocation.parser.parse_args()
+        location = data['location'].strip()
         if len(data['location'].strip()) < 3:
             return {'message':'location should be atleast 3 characters long'}, 400
-        if data['location'].isdigit():
-            return {'message':'current location should not be digits only'}, 400
+        if not location.isalpha():
+            return {'message':'current location should only be letters'}, 400
         ParcelModel.change_current_location(data['location'], parcel_id)
 
         requests.post(
