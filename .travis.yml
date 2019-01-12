@@ -1,9 +1,14 @@
 language: python
 python:
   - 3.6
+services:
+    - postgresql
 install:
   - pip install -r requirements.txt
   - pip install coveralls
+before_script:
+    - source ./.travis.sh
+    - psql -c 'create database sendit_test;' -U postgres
 script:
   - coverage run -m unittest discover && coverage report
 
