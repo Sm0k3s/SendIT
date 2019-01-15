@@ -1,5 +1,6 @@
 """Launches the app"""
 from flask import Flask, jsonify
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from config import config
 from app.api.v2.models.database import Database
@@ -7,6 +8,7 @@ from app.api.v2.models.database import Database
 def create_app(config_name="DEVELOPMENT"):
     """Initializes the app"""
     app = Flask(__name__, instance_relative_config=True)
+    CORS(app)
     app.config.from_object(config[config_name])
     Database.initialize(app.config['DATABASE_URI'])
     jwt = JWTManager(app)
