@@ -6,6 +6,7 @@ function eventListeners (){
   document.getElementById('allorders').addEventListener('click', getParcels);
   document.getElementById('intransit').addEventListener('click', parcelsInTransit);
   document.getElementById('_delivered').addEventListener('click', parcelsDelivered);
+  document.getElementById('in_transit').addEventListener('click', cancelParcel);
 }
 
 // function to decode token
@@ -96,6 +97,7 @@ function parcelsInTransit(e){
           <td>${parcel['weight']}</td>
           <td>${parcel['price']}</td>
           <td>${parcel['status']}</td>
+          <td> <a href="#" class="btn edit">Change destination</a></td>
           <td> <a href="#" class="btn cancel">Cancel</a></td>
         </tr>
         `;
@@ -154,10 +156,6 @@ function parcelsDelivered(e){
   .catch(err => console.log(err))
 }
 
-// if(document.getElementById('cancel')){
-//   document.getElementById('cancel').addEventListener('click', cancelParcel);
-// }
-document.body.addEventListener('click', cancelParcel)
 
 function cancelParcel(e){
   e.preventDefault();

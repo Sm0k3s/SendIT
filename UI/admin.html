@@ -17,7 +17,7 @@
           <li><a href="admin.html" class="activ">Admin</a></li>
           <li><a href="orders.html">Orders</a></li>
           <li><a href="profile.html">Profile</a></li>
-					<li><a href="login.html">Sign Out</a></li>
+					<li><a href="login.html" id="signout">Sign Out</a></li>
 				</ul>
 			</span>
 		</nav>
@@ -26,7 +26,7 @@
   <section  class="place-order">
 
           <div class="tab">
-            <button id="defaultOpen" class="tablinks" onclick="openCity(event, 'delivered')">All orders</button>
+            <button id="defaultOpen" class="tablinks alltheorders" onclick="openCity(event, 'delivered')">All orders</button>
             <button class="tablinks" onclick="openCity(event, 'transit')">Change delivery status</button>
             <button class="tablinks" onclick="openCity(event, 'all-deli')">Edit current location</button>
           </div>
@@ -37,18 +37,22 @@
 
                 <table>
                   <h3>All delivery orders</h3>
-                      <tbody>
-
+                      <thead>
                         <tr>
-
-                        <th>Pick up location</th>
+                        <th>Parcel id</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Current location</th>
                         <th>Drop off location</th>
-                        <th>Weight</th>
-                        <th>Price in Kshs.</th>
+                        <th>Weight (grams)</th>
+                        <th>Price (Kshs)</th>
                         <th>Status</th>
                         <th></th>
                         </tr>
 
+                      </thead>
+                      <tbody id="alltheorders">
+<!--
                         <tr>
 
                           <td>Marsabit</td>
@@ -88,7 +92,7 @@
                           <td>16</td>
                           <td>150</td>
                           <td> <a href="#" class="btn edit">Delivered</a></td>
-                        </tr>
+                        </tr> -->
                       </tbody>
                     </table>
 
@@ -166,9 +170,23 @@
 
               <table>
                 <h3>All delivery orders</h3>
+                    <thead>
+                      <tr>
+                      <th>Parcel id</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Current location</th>
+                      <th>Drop off location</th>
+                      <th>Weight (grams)</th>
+                      <th>Price (Kshs)</th>
+                      <th>Status</th>
+                      <th></th>
+                      </tr>
+
+                    </thead>
                     <tbody>
 
-                      <tr>
+                      <!-- <tr>
 
                       <th>Pick up location</th>
                       <th>Drop off location</th>
@@ -176,23 +194,9 @@
                       <th>Price in Kshs.</th>
                       <th>Change current location</th>
                       <th></th>
-                      </tr>
+                      </tr> -->
 
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td>
-                          <select name="status">
-                          <option value="">Mombasa</option>
-                          <option value="">Nairobi</option>
-                          <option value="">Garissa</option>
-                          </select>
-                        </td>
-                      </tr>
-                      <tr>
+                      <!-- <tr>
 
                         <td>Marsabit</td>
                         <td>Eldoret</td>
@@ -248,6 +252,20 @@
                           </select>
                         </td>
                       </tr>
+                      <tr>
+
+                        <td>Marsabit</td>
+                        <td>Eldoret</td>
+                        <td>16</td>
+                        <td>150</td>
+                        <td>
+                          <select name="status">
+                          <option value="">Mombasa</option>
+                          <option value="">Nairobi</option>
+                          <option value="">Garissa</option>
+                          </select>
+                        </td>
+                      </tr> -->
                     </tbody>
                   </table>
 
@@ -263,8 +281,7 @@
  			</small
  		</div>
   </footer>
-   <script src="js/app.js">
-
-   </script>
+   <script src="js/app.js"></script>
+   <script src="js/admin.js"></script>
   </body>
 </html>
