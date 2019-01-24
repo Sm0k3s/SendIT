@@ -91,11 +91,12 @@ function parcelsInTransit(e){
           <td>${parcel['id']}</td>
           <td>${parcel['title']}</td>
           <td>${parcel['description']}</td>
-          <td>${parcel['pickup_location']}</td>
+          <td>${parcel['current_location']}</td>
           <td>${parcel['destination']}</td>
           <td>${parcel['weight']}</td>
           <td>${parcel['price']}</td>
           <td>${parcel['status']}</td>
+          <td> <a href="#" class="btn cancel">Cancel</a></td>
         </tr>
         `;
         document.getElementById('in_transit').innerHTML = output;
@@ -151,4 +152,39 @@ function parcelsDelivered(e){
     }
   })
   .catch(err => console.log(err))
+}
+
+// if(document.getElementById('cancel')){
+//   document.getElementById('cancel').addEventListener('click', cancelParcel);
+// }
+document.body.addEventListener('click', cancelParcel)
+
+function cancelParcel(e){
+  e.preventDefault();
+  let status;
+
+  if(e.target.classList.contains('cancel')){
+    let id = e.target.parentElement.parentElement.firstElementChild.innerHTML;
+
+    fetch(`http://127.0.0.1:5000/api/v2/parcels/${id}/cancel`,{
+      method:'PUT',
+      headers:{
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+      }
+    })
+    .then((res)=>{
+      status = res.status;
+      return res.json();
+    })
+    .then((data)=>{
+      if(status >= 200){
+        // alert(`${data.message}`)
+        e.target.parentElement.parentElement.remove();
+      }else if (status >= 400) {
+        alert(`${data.message}`)
+      }
+
+    })
+  }
 }
