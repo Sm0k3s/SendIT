@@ -13,7 +13,7 @@ function signOut(e){
   e.preventDefault();
 
   window.localStorage.removeItem('token');
-  window.location.href = 'login.html';
+  setTimeout(()=>{window.location.href = 'login.html';}, 100); 
 }
 
 function calcPrice(e){

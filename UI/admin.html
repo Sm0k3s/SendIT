@@ -27,7 +27,7 @@
 
           <div class="tab">
             <button id="defaultOpen" class="tablinks alltheorders" onclick="openCity(event, 'delivered')">All orders</button>
-            <button class="tablinks" onclick="openCity(event, 'transit')">Change delivery status</button>
+            <button class="tablinks changests" onclick="openCity(event, 'transit')">Change delivery status</button>
             <button class="tablinks" onclick="openCity(event, 'all-deli')">Edit current location</button>
           </div>
 
@@ -52,47 +52,7 @@
 
                       </thead>
                       <tbody id="alltheorders">
-<!--
-                        <tr>
 
-                          <td>Marsabit</td>
-                          <td>Eldoret</td>
-                          <td>16</td>
-                          <td>150</td>
-                          <td> <a href="#" class="btn edit">In-transit</a></td>
-                        </tr>
-                        <tr>
-
-                          <td>Marsabit</td>
-                          <td>Eldoret</td>
-                          <td>16</td>
-                          <td>150</td>
-                          <td> <a href="#" class="btn edit">Delivered</a></td>
-                        </tr>
-                        <tr>
-
-                          <td>Marsabit</td>
-                          <td>Eldoret</td>
-                          <td>16</td>
-                          <td>150</td>
-                          <td> <a href="#" class="btn edit">In-transit</a></td>
-                        </tr>
-                        <tr>
-
-                          <td>Marsabit</td>
-                          <td>Eldoret</td>
-                          <td>16</td>
-                          <td>150</td>
-                          <td> <a href="#" class="btn edit">In-transit</a></td>
-                        </tr>
-                        <tr>
-
-                          <td>Marsabit</td>
-                          <td>Eldoret</td>
-                          <td>16</td>
-                          <td>150</td>
-                          <td> <a href="#" class="btn edit">Delivered</a></td>
-                        </tr> -->
                       </tbody>
                     </table>
 
@@ -105,60 +65,22 @@
 
               <table>
                 <h3>Change current state of a delivery</h3>
-                    <tbody>
-
+                    <thead>
                       <tr>
-
-                      <th>Pick up location</th>
+                      <th>Parcel id</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Current location</th>
                       <th>Drop off location</th>
-                      <th>Weight</th>
-                      <th>Price in Kshs.</th>
-                      <th>Change status</th>
-                      <th></th>
+                      <th>Weight (grams)</th>
+                      <th>Price (Kshs)</th>
+                      <th>Status</th>
+                      <th>Change status to:</th>
                       </tr>
 
-                      <tr>
+                    </thead>
+                    <tbody id="change">
 
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td>
-                          <select name="status">
-                          <option value="">In-transit</option>
-                          <option value="">Delivered</option>
-                          <option value="">Cancel</option>
-                          </select>
-                        </td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td>
-                           <select name="status">
-                           <option value="">In-transit</option>
-                           <option value="">Delivered</option>
-                           <option value="">Cancel</option>
-                           </select>
-                         </td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td>
-                           <select name="status">
-                           <option value="">In-transit</option>
-                           <option value="">Delivered</option>
-                           <option value="">Cancel</option>
-                           </select>
-                         </td>
-                      </tr>
                     </tbody>
                   </table>
 
@@ -185,87 +107,7 @@
 
                     </thead>
                     <tbody>
-
-                      <!-- <tr>
-
-                      <th>Pick up location</th>
-                      <th>Drop off location</th>
-                      <th>Weight</th>
-                      <th>Price in Kshs.</th>
-                      <th>Change current location</th>
-                      <th></th>
-                      </tr> -->
-
-                      <!-- <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td>
-                          <select name="status">
-                          <option value="">Mombasa</option>
-                          <option value="">Nairobi</option>
-                          <option value="">Garissa</option>
-                          </select>
-                        </td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td>
-                          <select name="status">
-                          <option value="">Mombasa</option>
-                          <option value="">Nairobi</option>
-                          <option value="">Garissa</option>
-                          </select>
-                        </td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td>
-                          <select name="status">
-                          <option value="">Mombasa</option>
-                          <option value="">Nairobi</option>
-                          <option value="">Garissa</option>
-                          </select>
-                        </td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td>
-                          <select name="status">
-                          <option value="">Mombasa</option>
-                          <option value="">Nairobi</option>
-                          <option value="">Garissa</option>
-                          </select>
-                        </td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td>
-                          <select name="status">
-                          <option value="">Mombasa</option>
-                          <option value="">Nairobi</option>
-                          <option value="">Garissa</option>
-                          </select>
-                        </td>
-                      </tr> -->
+                      
                     </tbody>
                   </table>
 
