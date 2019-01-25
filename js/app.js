@@ -6,6 +6,14 @@ eventListeners();
 
 function eventListeners() {
   document.querySelector('#quote').addEventListener('click', calcPrice);
+  document.getElementById('signout').addEventListener('click', signOut)
+}
+
+function signOut(e){
+  e.preventDefault();
+
+  window.localStorage.removeItem('token');
+  setTimeout(()=>{window.location.href = 'login.html';}, 100); 
 }
 
 function calcPrice(e){

@@ -17,7 +17,7 @@
           <li><a href="admin.html">Admin</a></li>
           <li><a href="orders.html">Orders</a></li>
           <li><a href="profile.html" class="activ">Profile</a></li>
-					<li><a href="login.html">Sign Out</a></li>
+					<li><a href="login.html" id="signout">Sign Out</a></li>
 				</ul>
 			</span>
 		</nav>
@@ -26,9 +26,9 @@
   <section  class="place-order">
 
           <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'delivered')" id="defaultOpen">Delivered</button>
-            <button class="tablinks" onclick="openCity(event, 'transit')">In-transit</button>
-            <button class="tablinks" onclick="openCity(event, 'all-deli')">All orders</button>
+            <button class="tablinks" id="_delivered" onclick="openCity(event, 'delivered')" id="defaultOpen">Delivered</button>
+            <button class="tablinks" id="intransit" onclick="openCity(event, 'transit')">In-transit</button>
+            <button class="tablinks" id="allorders" onclick="openCity(event, 'all-deli')">All orders</button>
           </div>
 
           <div id="delivered" class="tabcontent">
@@ -36,42 +36,22 @@
 
                   <table>
                     <h3>Delivered orders</h3>
-                        <tbody>
-
+                        <thead>
                           <tr>
-
+                          <th>Parcel id</th>
+                          <th>Title</th>
+                          <th>Description</th>
                           <th>Pick up location</th>
                           <th>Drop off location</th>
-                          <th>Weight</th>
-                          <th>Price in Kshs.</th>
+                          <th>Weight (grams)</th>
+                          <th>Price (Kshs)</th>
                           <th>Status</th>
                           <th></th>
                           </tr>
 
-                          <tr>
-
-                            <td>Marsabit</td>
-                            <td>Eldoret</td>
-                            <td>16</td>
-                            <td>150</td>
-                            <td> <a href="#" class="btn edit">Delivered</a></td>
-                          </tr>
-                          <tr>
-
-                            <td>Marsabit</td>
-                            <td>Eldoret</td>
-                            <td>16</td>
-                            <td>150</td>
-                            <td> <a href="#" class="btn edit">Delivered</a></td>
-                          </tr>
-                          <tr>
-
-                            <td>Marsabit</td>
-                            <td>Eldoret</td>
-                            <td>16</td>
-                            <td>150</td>
-                            <td> <a href="#" class="btn edit">Delivered</a></td>
-                          </tr>
+                        </thead>
+                        <tbody id="deliv">
+                          
                         </tbody>
                       </table>
 
@@ -83,42 +63,21 @@
 
               <table>
                 <h3>Deliveries currently in transit</h3>
-                    <tbody>
+                <thead>
+                  <tr>
+                  <th>Parcel id</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Current location</th>
+                  <th>Drop off location</th>
+                  <th>Weight (grams)</th>
+                  <th>Price (Kshs)</th>
+                  <th>Status</th>
+                  <th></th>
+                  </tr>
 
-                      <tr>
-
-                      <th>Pick up location</th>
-                      <th>Drop off location</th>
-                      <th>Weight</th>
-                      <th>Price in Kshs.</th>
-                      <th>Status</th>
-                      <th></th>
-                      </tr>
-
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td> <a href="#" class="btn edit">In-transit</a></td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td> <a href="#" class="btn edit">In-transit</a></td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td> <a href="#" class="btn edit">In-transit</a></td>
-                      </tr>
+                </thead>
+                    <tbody id="in_transit">
                     </tbody>
                   </table>
 
@@ -130,58 +89,21 @@
 
               <table>
                 <h3>All delivery orders</h3>
-                    <tbody>
-
+                    <thead>
                       <tr>
-
+                      <th>Parcel id</th>
+                      <th>Title</th>
+                      <th>Description</th>
                       <th>Pick up location</th>
                       <th>Drop off location</th>
-                      <th>Weight</th>
-                      <th>Price in Kshs.</th>
+                      <th>Weight (grams)</th>
+                      <th>Price (Kshs)</th>
                       <th>Status</th>
                       <th></th>
                       </tr>
 
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td> <a href="#" class="btn edit">In-transit</a></td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td> <a href="#" class="btn edit">Delivered</a></td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td> <a href="#" class="btn edit">In-transit</a></td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td> <a href="#" class="btn edit">In-transit</a></td>
-                      </tr>
-                      <tr>
-
-                        <td>Marsabit</td>
-                        <td>Eldoret</td>
-                        <td>16</td>
-                        <td>150</td>
-                        <td> <a href="#" class="btn edit">Delivered</a></td>
-                      </tr>
+                    </thead>
+                    <tbody id="all_orders">
                     </tbody>
                   </table>
 
@@ -197,8 +119,7 @@
  			</small
  		</div>
   </footer>
-   <script src="js/app.js">
-
-   </script>
+   <script src="js/app.js"></script>
+   <script src="js/profile.js"></script>
   </body>
 </html>
