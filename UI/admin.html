@@ -28,7 +28,7 @@
           <div class="tab">
             <button id="defaultOpen" class="tablinks alltheorders" onclick="openCity(event, 'delivered')">All orders</button>
             <button class="tablinks changests" onclick="openCity(event, 'transit')">Change delivery status</button>
-            <button class="tablinks" onclick="openCity(event, 'all-deli')">Edit current location</button>
+            <button class="tablinks changelocale" onclick="openCity(event, 'all-deli')">Edit current location</button>
           </div>
 
           <div id="delivered" class="tabcontent">
@@ -91,23 +91,22 @@
             <div class="edit-order">
 
               <table>
-                <h3>All delivery orders</h3>
+                <h3>Edit current location</h3>
                     <thead>
                       <tr>
                       <th>Parcel id</th>
                       <th>Title</th>
-                      <th>Description</th>
                       <th>Current location</th>
                       <th>Drop off location</th>
                       <th>Weight (grams)</th>
                       <th>Price (Kshs)</th>
-                      <th>Status</th>
+                      <th>Update location</th>
                       <th></th>
                       </tr>
 
                     </thead>
-                    <tbody>
-                      
+                    <tbody id="changeloc">
+
                     </tbody>
                   </table>
 

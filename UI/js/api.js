@@ -36,12 +36,19 @@ function login(e){
       })
       .then((data) =>{
         if (status >= 400){
-          alert(`${data.Message}`)
+          alert(`${data.message}`)
         }
         else if (status >= 200){
-          alert(`${data.Message}`);
-          window.localStorage.setItem('token', data.token);
-          window.location.href = 'orders.html';
+          if(data.role === 'admin'){
+            alert(`${data.role} and ${data.message}`);
+            window.localStorage.setItem('token', data.token);
+            window.location.href = 'admin.html';
+          } else {
+            alert(`${data.role} and ${data.message}`);
+            window.localStorage.setItem('token', data.token);
+            window.location.href = 'orders.html';
+          }
+
         }
       })
       .catch((err)=>console.log(err))

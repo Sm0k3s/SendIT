@@ -144,12 +144,16 @@ class UserLogin(Resource):
 
         user = UserModel.find_by_username(data['username'])
         if not user:
-            return {'Message':'a user with name \'{}\' does not exist'.format(data['username']),
+            return {'message':'a user with name \'{}\' does not exist'.format(data['username']),
                     'info':'please use the name you provided when signin up'}, 401
 
         if check_password_hash(user['password'],data['password']):
             access_token = create_access_token(identity=user['id'])
-            return {'Message':'login successful', 'token':access_token}
+            if user['role'] == 'admin':
+                return {'message':'login successful',
+                'role':'admin' , 'token':access_token}
+            return {'message':'login successful',
+            'role':'user', 'token':access_token}
         return {'message':'invalid credentials'}, 401
 
 class UsersParcels(Resource):

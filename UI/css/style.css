@@ -289,8 +289,8 @@ section {
 }
 
  .close {
-	 position: relative;
-	 top: 0;
+	  position: relative;
+	  top: 0;
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -376,4 +376,14 @@ section {
 	text-align: center;
 	color: green;
 	background-color: rgba(0, 255, 0, 0.2);
+}
+
+.c_location {
+		margin: 5px 0;
+    padding: 5px 10px;
+    border: 1px solid #2C066E;
+    width: 150px;
+    align-content: center;
+    border-radius: 3px;
+    display: block;
 }

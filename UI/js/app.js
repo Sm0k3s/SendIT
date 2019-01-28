@@ -5,7 +5,7 @@ eventListeners();
 // Functions
 
 function eventListeners() {
-  document.querySelector('#quote').addEventListener('click', calcPrice);
+  document.querySelector('.weight').addEventListener('blur', calcPrice);
   document.getElementById('signout').addEventListener('click', signOut)
 }
 
@@ -13,7 +13,7 @@ function signOut(e){
   e.preventDefault();
 
   window.localStorage.removeItem('token');
-  setTimeout(()=>{window.location.href = 'login.html';}, 100); 
+  setTimeout(()=>{window.location.href = 'login.html';}, 200);
 }
 
 function calcPrice(e){
@@ -23,6 +23,7 @@ function calcPrice(e){
   const price = document.querySelector('.weight').value;
   let ne = parseInt(price) * 2
   console.log(place, ne);
+  document.querySelector('.price').innerHTML = ne;
 }
 
 // Modal
