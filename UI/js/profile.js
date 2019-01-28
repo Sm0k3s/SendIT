@@ -7,6 +7,7 @@ function eventListeners (){
   document.getElementById('intransit').addEventListener('click', parcelsInTransit);
   document.getElementById('_delivered').addEventListener('click', parcelsDelivered);
   document.getElementById('in_transit').addEventListener('click', cancelParcel);
+  document.querySelector('#in_transit').addEventListener('click', updateDestination);
 }
 
 // function to decode token
@@ -91,13 +92,12 @@ function parcelsInTransit(e){
 
           <td>${parcel['id']}</td>
           <td>${parcel['title']}</td>
-          <td>${parcel['description']}</td>
           <td>${parcel['current_location']}</td>
           <td>${parcel['destination']}</td>
           <td>${parcel['weight']}</td>
           <td>${parcel['price']}</td>
-          <td>${parcel['status']}</td>
-          <td> <a href="#" class="btn edit">Change destination</a></td>
+          <td> <input type="text" class="c_location" id="" placeholder="update destination"> </td>
+          <td> <a href="#" class="btn edit update">Update</a></td>
           <td> <a href="#" class="btn cancel">Cancel</a></td>
         </tr>
         `;
@@ -185,4 +185,50 @@ function cancelParcel(e){
 
     })
   }
+}
+
+//Update a parcels destination
+
+function updateDestination(e){
+  e.preventDefault();
+  let status;
+  if(e.target.classList.contains('update')){
+    let id = e.target.parentElement.parentElement.firstElementChild.innerHTML;
+    let new_location = e.target.parentElement.parentElement.children[6].children[0].value;
+    let new_ = e.target.parentElement.parentElement.children[3].innerText;
+
+    console.log(new_)
+    console.log(id);
+    console.log(new_location);
+    fetch(`http://127.0.0.1:5000/api/v2/parcels/${id}/destination`, {
+      method: 'PUT',
+      headers:{
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Request-Method': '*'
+      },
+      body: JSON.stringify({
+          new_destination: new_location
+        })
+    })
+    .then((res) => {
+      status = res.status;
+      return res.json();
+    })
+    .then((data) => {
+      if(status == 400){
+        alert(`${data.message}`);
+        console.log(data);
+        // document.querySelector('.c_location').reset();
+        // new_ = `${new_location}`;
+      } else if(status == 200) {
+        alert(`${data.message}`);
+        // document.querySelector('.c_location').reset();
+        console.log(data);
+      }
+    })
+    .catch(err => console.log(err));
+  }
+
 }
