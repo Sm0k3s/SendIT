@@ -21,7 +21,7 @@ more-itertools==4.3.0
 pathlib2==2.3.2
 pluggy==0.8.0
 psycopg2-binary==2.7.5
-py==1.7.0
+py==1.10.0
 pytest==3.10.0
 pytest-cov==2.6.0
 python-dotenv==0.9.1
